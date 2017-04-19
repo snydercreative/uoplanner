@@ -1,0 +1,36 @@
+{
+  "name": "uoplanner",
+  "version": "1.0.0",
+  "description": "UO Character Planner (Renaissance era)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snydercreative/UOPlanner.git"
+  },
+  "author": "Michael Snyder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/snydercreative/UOPlanner/issues"
+  },
+  "homepage": "https://github.com/snydercreative/UOPlanner#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.1.2",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.2.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.5"
+  }
+}
