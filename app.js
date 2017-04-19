@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const apiRoutes = require('./server/api');
 const webRoutes = require('./server/web');
 
-mongoose.connect('mongodb://127.0.0.1:27017/SittingOutside');
+mongoose.connect('mongodb://127.0.0.1:27017/UOPlanner');
 
 app.use(bodyParser.urlencoded({
     extended: true
