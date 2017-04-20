@@ -4,6 +4,21 @@ html(lang="en-US" charset="utf-8")
 
 	head
 
+		link(href="/css/master.min.css" rel="stylesheet")
+
 	body
 
-		| hey world.
+		.flex.flex-column
+			
+			header
+				h1 UO Planner
+
+			main
+
+				#planner.flex.flex-column
+
+					.flex.flex-row
+						input(placeholde="Skill")
+						input(placeholde="Points")
+
+			
