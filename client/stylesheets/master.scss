@@ -1,1 +1,11 @@
-@import "partials/core/flexbox"
+@import "partials/core/colors";
+@import "partials/core/flexbox";
+
+@import "partials/basics/body";
+@import "partials/basics/headings";
+
+@import "partials/features/header";
+@import "partials/features/panel";
+@import "partials/features/perks";
+@import "partials/features/sharing";
+@import "partials/features/footer";

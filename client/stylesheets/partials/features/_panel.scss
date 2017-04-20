@@ -1,0 +1,27 @@
+.panel {
+	background: $slate;
+	padding: 2em;
+	margin: 1em 0;
+
+	&:first-child {
+		margin-right: 1em;
+	}
+
+	&:last-child {
+		margin-left: 1em;
+	}
+
+	table {
+		margin-bottom: 20px;
+		width: 100%;
+
+		tr {
+			height: 2em;
+
+			th {
+				text-align: left;
+			}
+		}
+	}
+
+}
