@@ -1,7 +1,8 @@
 .panel {
 	background: $slate;
-	padding: 2em;
-	margin: 1em 0;
+	padding: 2em 2em 4em;
+	position: relative;
+	margin: 1em 0 2em;
 
 	&:first-child {
 		margin-right: 1em;

@@ -1,0 +1,35 @@
+button {
+	display: inline-block;
+	border: none;
+	background: $yellow;
+	color: $darkSlate;
+	padding: .75em;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em; 
+	text-align: left;
+	width:300px;
+
+	i {
+		display: inline-block;
+		float: right;
+	}
+
+	&:hover {
+		color: $yellow;
+		background: rgba($yellow, 0.2);
+	}
+
+	&.btn-bottom {
+		background: white;
+		margin-top: 1em;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;	
+
+		&:hover {
+			background: rgba(white, .3);
+			color: white;
+		}	
+	}
+}
