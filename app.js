@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
-app.use('/api/v1/', apiRoutes);
+app.use('/api/v1', apiRoutes);
 app.use('/', webRoutes);
 
 app.set('view engine', 'pug');
