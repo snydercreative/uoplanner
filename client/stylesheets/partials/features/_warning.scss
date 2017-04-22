@@ -1,0 +1,14 @@
+.warning {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: $yellow;
+	color: $darkSlate;
+
+	p {
+		margin: 0;
+		padding: .5em;
+		text-align: center;
+	}
+}

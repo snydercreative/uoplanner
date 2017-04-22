@@ -5,9 +5,12 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 	include includes/head.pug
 
 	body.flex.flex-column(ng-controller="BuildCtrl as build")
-			
+		
+		.warning(style="display: none")
+			p Your template has unsaved changes.		
+
 		header
-			h1 New Template (click to rename)
+			h1#templateName(ng-click="build.displayTemplateNameModal()") New Template (click to rename)
 			#skillcap 700 skill cap
 
 		main.flex.flex-row
@@ -30,7 +33,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 				button(ng-click="build.displayAddSkillModal()") Add Skill
 					i.fa.fa-caret-right
 
-				button.btn-bottom Save Template
+				button.btn-bottom(ng-click="build.saveTemplate()") Save Template
 					i.fa.fa-caret-right
 
 			.panel.perks.flex.flex-column.flex-grow-1
@@ -48,12 +51,21 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 				.panel
 					i.fa.fa-times.fa-2x.close(ng-click="build.dismissModal($event)")
 					h2 Add Skill
-					input#skillSearch(placeholder="Start typing to search skills" ng-model="build.skillName")
+					input#skillSearch(type="text" placeholder="Start typing to search skills" ng-model="build.skillName")
 					p Click and drag to set skill value
 					.slider
 						input#skillRange(type="range" min="0" max="100" step="1" ng-model="build.rangeValue")
 						.value {{build.rangeValue}}
 					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template
+						i.fa.fa-caret-right
+
+		.modal-wrapper
+			.modal.name-modal.flex
+				.panel
+					i.fa.fa-times.fa-2x.close(ng-click="build.dismissModal($event)")
+					h2 Edit Template Name
+					input#templateName(type="text" placeholder="Enter new template name" ng-model="build.templateName")
+					button.btn-bottom(ng-click="build.setTemplateName(build.templateName)") Change Template Name
 						i.fa.fa-caret-right
 
 		include includes/footer.pug
