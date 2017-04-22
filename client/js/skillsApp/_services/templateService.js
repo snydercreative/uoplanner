@@ -7,7 +7,7 @@ skillsApp.factory('templateService', ['$http', function($http) {
 		$http.post("http://localhost:1234/api/v1/template/save", postBody)
 			.then(
 				successResponse => {
-					callback(successResponse.templateId);
+					callback(successResponse.data);
 				}, 
 				errorResponse => {
 					console.log(errorResponse);
