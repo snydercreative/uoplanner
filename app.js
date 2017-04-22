@@ -19,6 +19,6 @@ app.use('/api/v1/', apiRoutes);
 app.use('/', webRoutes);
 
 app.set('view engine', 'pug');
-app.set('views', ['server/web/home']);
+app.set('views', ['server/web/views']);
 
 app.listen(1234);

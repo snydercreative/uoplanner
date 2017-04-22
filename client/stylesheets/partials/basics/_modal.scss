@@ -1,0 +1,32 @@
+.modal-wrapper {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba($darkSlate, .75); 
+
+	&.active {
+		display: block;
+	}
+
+	.modal {
+		.panel {
+			box-shadow: 0 0 200px #000;
+			margin: 0;
+		}
+
+		.close {
+			position: absolute;
+			color: white;
+			top: 3px;
+			right: 5px;
+			cursor: pointer;
+
+			&:hover {
+				color: $yellow;
+			}
+		}
+	}
+} 

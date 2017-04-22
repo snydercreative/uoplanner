@@ -1,0 +1,33 @@
+.skill-modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 200; 
+
+	p {
+		margin-top: 2em;
+		margin-bottom: 0;
+	}
+
+	#skillSearch {
+		width: 600px;
+		font-size: 1.2em;
+		padding: .5em;
+		border: 0;
+	}
+
+	#skillRange {
+		width: 500px;
+	}
+
+	.slider {
+		.value {
+			display: inline-block;
+			font-size: 1.4em;
+			position: relative;
+			top: 6px;
+			margin-left: 1em;
+		}
+	}
+}

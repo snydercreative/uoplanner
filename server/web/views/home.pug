@@ -1,0 +1,54 @@
+doctype html
+
+html(lang="en-US" charset="utf-8")
+
+	include includes/head.pug
+
+	body.flex.flex-column(ng-app="skillsApp")
+			
+		header
+			h1 Stealth Fencer
+			#skillcap 700 skill cap
+
+		main.flex.flex-row(ng-controller="ShareCtrl as share")
+			.panel.skills.flex.flex-column.flex-grow-1
+				h2 Skills
+				table
+					thead
+						tr
+							th Name
+							th Points
+					tbody
+						tr
+							td Fencing
+							td 100
+						tr
+							td Tactics
+							td 100
+						tr
+							td Anatomy
+							td 100
+						tr
+							td Healing
+							td 100
+						tr
+							td Resisting Spells
+							td 100
+						tr
+							td Hiding
+							td 100
+						tr
+							td Stealth
+							td 100
+
+			.panel.perks.flex.flex-column.flex-grow-1
+				h2 Perks
+				ul 
+					li 25% Chance for Paralyzing Blow (Fencing + Anatomy)
+					li 10% Melee Damage Bonus (Tactics)
+			
+		section#sharing
+			h3 Share
+			.link http://uoplanner.com/8fh37/stealth-fencer
+
+		include includes/footer.pug

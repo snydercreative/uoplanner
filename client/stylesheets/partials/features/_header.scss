@@ -4,10 +4,29 @@ body > header {
 		padding-right: 1em;
 		margin-right: 1em;
 		border-right: 2px solid $yellow;
+		display: inline-block;
+
+		input {
+			font-size: inherit;
+			border: none;
+		}
+
+		button {
+			font-size: .25em;
+			display: inline-block;
+			margin-left: 1em;
+			width: auto;
+
+			i {
+				display: inline-block;
+				margin-left: 2em;
+			}
+		}
 	}
 
 	#skillcap {
 		line-height: 75px;
 		font-size: 36px;
+		display: inline-block;
 	}
 }

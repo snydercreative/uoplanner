@@ -1,6 +1,6 @@
 .flex {
 	display: flex;
-	flex: 1 1 100%;
+	flex: 0 0 auto; 
 }
 
 .flex-column {
@@ -9,6 +9,14 @@
 
 .flex-row {
 	flex-direction: row;
+}
+
+.flex-grow-4 {
+	flex-grow: 4;
+}
+
+.flex-grow-1 {
+	flex-grow: 1;
 }
 
 .flex-10 { flex-basis: 10% }

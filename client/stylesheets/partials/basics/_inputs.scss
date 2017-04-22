@@ -1,0 +1,105 @@
+input {
+	&::placeholder { /* newest */
+		font-style: italic;
+		color: rgba($darkSlate, .5);
+	}
+	&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+		font-style: italic;
+		color: rgba($darkSlate, .5);
+	}
+	&::-moz-placeholder { /* Firefox 19+ */
+		font-style: italic;
+		color: rgba($darkSlate, .5);
+	}
+	&:-ms-input-placeholder { /* IE 10+ */
+		font-style: italic;
+	}
+	&:-moz-placeholder { /* Firefox 18- */
+		font-style: italic;
+		color: rgba($darkSlate, .5);
+	}
+
+	&[type=range] {
+		-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+		width: 100%; /* Specific width is required for Firefox. */
+		background: transparent; /* Otherwise white in Chrome */
+
+		&:focus {
+			outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+		}
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			height: 16px;
+			width: 16px;
+			border-radius: 50%;
+			background: $yellow;
+			cursor: pointer;
+			margin-top: -7px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+			box-shadow: 1px 1px 6px $darkSlate;
+		}
+
+		&::-webkit-slider-runnable-track {
+			width: 100%;
+			height: 2px;
+			cursor: pointer;
+			background: $yellow;
+		}
+
+		&:focus::-webkit-slider-runnable-track {
+			background: $yellow;
+		}
+
+		&::-moz-range-thumb {
+			box-shadow: 1px 1px 6px $darkSlate;
+			height: 16px;
+			width: 16px;
+			border-radius: 50%;
+			border: none;
+			background: $yellow;
+			cursor: pointer;
+		}
+
+		&::-moz-range-track {
+			width: 100%;
+			height: 2px;
+			cursor: pointer;
+			background: $yellow;
+		}
+
+		&::-ms-thumb {
+			box-shadow: 1px 1px 6px $darkSlate;
+			height: 18px;
+			width: 16px; 
+			border-radius: 50%;
+			background: $yellow;
+			cursor: pointer;
+		}
+
+		&::-ms-track {
+			width: 100%;
+			height: 2px;
+			cursor: pointer; 
+			border-width: 18px 0;
+			border-color: transparent;
+			background: transparent;
+			color: transparent;
+		}
+
+		&::-ms-fill-lower {
+			background: $yellow;
+		}
+
+		&:focus::-ms-fill-lower {
+			background: $yellow;
+		}
+
+		&::-ms-fill-upper {
+			background: $yellow;
+		}
+
+		&:focus::-ms-fill-upper {
+			background: $yellow;
+		}
+	}
+}

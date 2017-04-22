@@ -1,0 +1,59 @@
+doctype html
+
+html(lang="en-US" charset="utf-8" ng-app="skillsApp")
+
+	include includes/head.pug
+
+	body.flex.flex-column(ng-controller="BuildCtrl as build")
+			
+		header
+			h1 New Template (click to rename)
+			#skillcap 700 skill cap
+
+		main.flex.flex-row
+			.panel.skills.flex.flex-column.flex-grow-1
+				h2 Skills
+				
+				table
+					thead
+						tr
+							th Name
+							th Points
+					tbody
+						tr(ng-if="build.skills.length === 0")
+							td Add a skill!
+							td
+						tr(ng-if="build.skills.length > 0" ng-repeat="skill in build.skills")
+							td {{skill.name}}
+							td {{skill.value}}
+										
+				button(ng-click="build.displayAddSkillModal()") Add Skill
+					i.fa.fa-caret-right
+
+				button.btn-bottom Save Template
+					i.fa.fa-caret-right
+
+			.panel.perks.flex.flex-column.flex-grow-1
+				h2 Perks
+				ul 
+					li 25% Chance for Paralyzing Blow (Fencing + Anatomy)
+					li 10% Melee Damage Bonus (Tactics) 
+			
+		section#sharing
+			h3 Share
+			.link.inactive Save template to generate sharing link
+				
+		.modal-wrapper
+			.modal.skill-modal.flex
+				.panel
+					i.fa.fa-times.fa-2x.close(ng-click="build.dismissModal($event)")
+					h2 Add Skill
+					input#skillSearch(placeholder="Start typing to search skills" ng-model="build.skillName")
+					p Click and drag to set skill value
+					.slider
+						input#skillRange(type="range" min="0" max="100" step="1" ng-model="build.rangeValue")
+						.value {{build.rangeValue}}
+					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template
+						i.fa.fa-caret-right
+
+		include includes/footer.pug
