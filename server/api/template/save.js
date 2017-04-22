@@ -1,10 +1,12 @@
 const templateService = require('../../../services/templateService');
 
-const save = (templateJson) => {
+const save = (templateJson, callback) => {
 	
 	console.log(templateJson);
 
-	templateService.save(templateJson.skills, templateJson.templateName, templateJson.templateId);
+	templateService.save(templateJson.skills, templateJson.templateName, templateJson.templateId, templateId => {
+		callback(templateId);
+	});
 };
 
 module.exports = { save };

@@ -15,6 +15,11 @@ gulp.task('clean', () => {
 		.pipe(clean());
 });
 
+gulp.task('move-data', () => {
+	return gulp.src('client/data/**/*')
+		.pipe(gulp.dest("public/data"));
+});
+
 gulp.task('scss', () => {
 	return gulp.src('client/stylesheets/master.scss')
 		.pipe(sass().on('error', sass.logError))
@@ -24,7 +29,12 @@ gulp.task('scss', () => {
 });
 
 gulp.task('js', () => {
-	return gulp.src(['client/js/utility/namespacer.js', 'client/js/utility/**/*', 'client/js/skillsApp/skillsApp.js', 'client/js/skillsApp/**/*'])
+	return gulp.src([
+			'client/js/utility/namespacer.js', 
+			'client/js/utility/**/*.js', 
+			'client/js/skillsApp/skillsApp.js', 
+			'client/js/skillsApp/services/**/*.js', 
+			'client/js/skillsApp/**/*.js'])
 		.pipe(jshint({
 			'esversion': 6
 		}))
@@ -39,7 +49,7 @@ gulp.task('js', () => {
 });
 
 gulp.task('default', ['clean'], (callback) => {
-	runSequence(['scss','js'], callback);
+	runSequence(['scss','js', 'move-data'], callback);
 });
 
 gulp.task('watcher', () => {

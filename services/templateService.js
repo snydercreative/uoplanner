@@ -1,7 +1,7 @@
 const templateModel = require('../models/templateModel'),
 	numberTools = require('../utility/numberTools'),
 
-	save = (skills, templateName, templateId) => {
+	save = (skills, templateName, templateId, callback) => {
 
 		let urlName = templateName
 			.toLowerCase()
@@ -11,6 +11,8 @@ const templateModel = require('../models/templateModel'),
 			.replace(/_/g, "-")
 			.replace(/--/g, "-");
 
+		templateId = templateId ? templateId : numberTools.generateBase36();
+
 		const rightNow = new Date(Date.now()),
 			query = { 
 				templateId: templateId, 
@@ -18,7 +20,7 @@ const templateModel = require('../models/templateModel'),
 				urlName: urlName
 			},
 			update = { 
-				templateId: templateId ? templateId : numberTools.generateBase36(), 
+				templateId: templateId, 
 				name: templateName,
 				lastModified: rightNow,
 				skills: skills
@@ -29,6 +31,7 @@ const templateModel = require('../models/templateModel'),
 			};
 
 		templateModel.findOneAndUpdate(query, update, options, (err, result) => {		
+			callback(templateId);
 			console.log(err);
 		});
 	};
