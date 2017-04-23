@@ -9,12 +9,31 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 	
 	self.skills = [];
 	self.templateName = '';
+	self.urlName = '';
 	self.templateId = '';
 	self.skillList = [];
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
 	});
+
+	const clipboard = new Clipboard('#sharing button');
+
+	angular.element('#sharing button').on('click', (event) => {
+		const $target = angular.element(event.currentTarget);
+
+		$target.text("Copied!").animate({
+			top: "-50px",
+			opacity: 0
+		}, 250, () => {
+			$target.text("Copy").animate({
+				top: 0,
+				opacity: 1
+			}, 250);
+		});
+	});
+
+	/***************** */
 
 	self.setSkillInput = selectedItem => {
 		self.skillName = selectedItem.skill;
@@ -26,6 +45,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 	};
 
 	self.displayAddSkillModal = () => {
+		self.skillName = '';
 		angular.element('.skill-modal').closest('.modal-wrapper').addClass('active');
 	};
 
@@ -69,9 +89,10 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 
 	self.saveTemplate = () => {
 		if (self.templateName && self.skills.length) {
-			templateService.save(self.skills, self.templateName, '', templateId => {
-				self.templateId = templateId;
-				console.log(templateId);
+			templateService.save(self.skills, self.templateName, '', query => {
+				self.templateId = query.templateId;
+				self.urlName = query.urlName;
+				updateSharingLink(self.templateId, self.urlName);
 			});
 		} else {
 			warn(mustSetTemplateNameAndSkillsWarning, false);
@@ -88,6 +109,12 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 					$warning.slideUp(250);
 				}, 3000);
 			});
+		},
+
+		updateSharingLink = (templateId, urlName) => {
+			const url = `http://localhost:1234/share/${templateId}/${urlName}`;
+			angular.element('#sharing .link').removeClass('inactive').text(url);
+			angular.element('#sharing button').show();
 		};
 
 }]);

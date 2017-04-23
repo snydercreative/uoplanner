@@ -1,4 +1,12 @@
 #sharing {
+	button {
+		position: relative;
+		width: auto;
+		background: transparent;
+		margin-left: .5em;
+		color: $yellow;
+	}
+
 	.link {
 		border: 2px solid $yellow;
 		display: inline-block;

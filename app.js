@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 const apiRoutes = require('./server/api');
 const webRoutes = require('./server/web');
 
-mongoose.connect('mongodb://127.0.0.1:27017/UOPlanner');
+const mongoUsername = process.env.MONGO_USER;
+const mongoPassword = process.env.MONGO_PASSWORD;
+const connectionString = `mongodb://${mongoUsername}:${mongoPassword}@127.0.0.1:27017/UOPlanner`;
+
+mongoose.connect(connectionString);
 
 app.use(bodyParser.urlencoded({
     extended: true

@@ -31,8 +31,9 @@ const templateModel = require('../models/templateModel'),
 			};
 
 		templateModel.findOneAndUpdate(query, update, options, (err, result) => {		
-			callback(templateId);
-			console.log(err);
+			callback(query);
+			if (err) 
+				console.log(err);
 		});
 	};
 

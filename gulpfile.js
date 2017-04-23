@@ -48,8 +48,13 @@ gulp.task('js', () => {
 		.pipe(gulp.dest('public/js'));
 });
 
+gulp.task('move-vendor-js', () => {
+	gulp.src('client/js/vendor/**/*')
+		.pipe(gulp.dest('public/js/vendor'));
+});
+
 gulp.task('default', ['clean'], (callback) => {
-	runSequence(['scss','js', 'move-data'], callback);
+	runSequence(['scss','js', 'move-data', 'move-vendor-js'], callback);
 });
 
 gulp.task('watcher', () => {

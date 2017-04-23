@@ -1,0 +1,20 @@
+{
+  "name": "UO Planner",
+  "description": "UO Character Planner (Renaissance era)",
+  "main": "index.js",
+  "authors": [
+    "Michael Snyder"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/snydercreative/UOPlanner",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "clipboard": "^1.6.1"
+  }
+}
