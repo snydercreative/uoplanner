@@ -112,7 +112,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 		},
 
 		updateSharingLink = (templateId, urlName) => {
-			const url = `http://localhost:1234/share/${templateId}/${urlName}`;
+			const url = window.location.origin + `/share/${templateId}/${urlName}`;
 			angular.element('#sharing .link').removeClass('inactive').text(url);
 			angular.element('#sharing button').show();
 		};

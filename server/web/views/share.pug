@@ -1,0 +1,36 @@
+doctype html
+
+html(lang="en-US" charset="utf-8" ng-app="skillsApp")
+
+	include includes/head.pug
+
+	body.flex.flex-column(ng-cloak ng-controller="ShareCtrl as share")
+			
+		header
+			h1 {{ share.templateName }}
+			#skillcap 700 skill cap
+
+		main.flex.flex-row
+			.panel.skills.flex.flex-column.flex-grow-1
+				h2 Skills
+				table
+					thead
+						tr
+							th Name
+							th Points
+					tbody
+						tr(ng-repeat="skill in share.skills")
+							td {{ skill.name }}
+							td {{ skill.value }}
+
+			.panel.perks.flex.flex-column.flex-grow-1
+				h2 Perks
+				ul 
+					li Coming soon!
+			
+		section#sharing
+			h3 Share
+			.link {{ share.shareUrl }}
+			button(data-clipboard-target="#sharing .link") Copy
+
+		include includes/footer.pug

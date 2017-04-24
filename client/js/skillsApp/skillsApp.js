@@ -1,1 +1,1 @@
-const skillsApp = angular.module('skillsApp', []); 
+const skillsApp = angular.module('skillsApp', []);

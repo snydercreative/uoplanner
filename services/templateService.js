@@ -35,6 +35,22 @@ const templateModel = require('../models/templateModel'),
 			if (err) 
 				console.log(err);
 		});
+	},
+
+	get = (templateId, urlName, callback) => {
+		const query = { templateId, urlName };
+
+		templateModel.findOne(query, (err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				const viewModel = { 
+					skills: result.skills, 
+					name: result.name
+				};
+				callback(viewModel);
+			}
+		});
 	};
 
-module.exports = { save };
+module.exports = { save, get };

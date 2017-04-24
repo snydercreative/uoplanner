@@ -4,7 +4,7 @@ skillsApp.factory('templateService', ['$http', function($http) {
 
 		const postBody = { skills, templateName, templateId };
 
-		$http.post("http://localhost:1234/api/v1/template/save", postBody)
+		$http.post("/api/v1/template/save", postBody)
 			.then(
 				successResponse => {
 					callback(successResponse.data);
@@ -13,8 +13,21 @@ skillsApp.factory('templateService', ['$http', function($http) {
 					console.log(errorResponse);
 				});
 
-	};
+		},
 
-	return { save };
+		get = (templateId, urlName, callback) => {
+
+			$http.get(`/api/v1/template/get/${templateId}/${urlName}`)
+				.then(
+					successResponse => {
+						callback(successResponse.data);
+					},
+					errorResponse => {
+						console.log(errorResponse);
+					}
+				);
+		};
+
+	return { save, get };
 
 }]);
