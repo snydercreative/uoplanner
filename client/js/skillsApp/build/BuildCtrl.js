@@ -60,8 +60,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 
 	self.addSkill = (skill) => {
 		if (skill.name && skill.value > 0) {
-
-			if (self.skills.indexOf(skill.name) > -1) {
+			if (self.skillList.indexOf(skill.name) > -1) {
 				self.skills.push(skill);
 				angular.element('.skill-modal .skill-list').slideUp(250);
 				self.dismissModal();
