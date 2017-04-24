@@ -5,7 +5,8 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 		mustSetTemplateNameAndSkillsWarning = "You must set a template name and add skills to save.",
 		mustActuallySetASkillWarning = "You must select a skill and set a value greater than 0.",
 		invalidOrMissingNameWarning = "You must set a valid template name",
-		templateSavedWarning = "Template saved!";
+		templateSavedWarning = "Template saved!",
+		pickAValidSkillWarning = "Please pick an actual UO skill.";
 	
 	self.skills = [];
 	self.templateName = '';
@@ -59,10 +60,16 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 
 	self.addSkill = (skill) => {
 		if (skill.name && skill.value > 0) {
-			self.skills.push(skill);
-			angular.element('.skill-modal .skill-list').slideUp(250);
-			self.dismissModal();
-			warn(changesNotSavedWarning);
+
+			if (self.skills.indexOf(skill.name) > -1) {
+				self.skills.push(skill);
+				angular.element('.skill-modal .skill-list').slideUp(250);
+				self.dismissModal();
+				warn(changesNotSavedWarning);
+			} else {
+				warn(pickAValidSkillWarning, true);
+			}
+
 		} else {
 			warn(mustActuallySetASkillWarning, true);
 		}
@@ -92,6 +99,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 			templateService.save(self.skills, self.templateName, '', query => {
 				self.templateId = query.templateId;
 				self.urlName = query.urlName;
+				warn(templateSavedWarning);
 				updateSharingLink(self.templateId, self.urlName);
 			});
 		} else {
@@ -107,7 +115,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 			$warning.slideDown(250, () => {
 				setTimeout(() => {
 					$warning.slideUp(250);
-				}, 3000);
+				}, 1500);
 			});
 		},
 
