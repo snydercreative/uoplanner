@@ -7,17 +7,17 @@ html(lang="en-US" charset="utf-8")
 	body.flex.flex-column(ng-app="skillsApp")
 			
 		header
-			h1 Stealth Fencer
-			#skillcap 700 skill cap
+			h1 UOPlanner
+			#skillcap For alt-o-holics, by alt-o-holics
 
 		main.flex.flex-row(ng-controller="ShareCtrl as share")
 			.panel.skills.flex.flex-column.flex-grow-1
-				h2 Skills
+				h2 Newest Templates
 				table
 					thead
 						tr
 							th Name
-							th Points
+							th Date Created
 					tbody
 						tr
 							td Fencing
@@ -42,11 +42,13 @@ html(lang="en-US" charset="utf-8")
 							td 100
 
 			.panel.perks.flex.flex-column.flex-grow-1
-				h2 Perks
-				ul 
-					li 25% Chance for Paralyzing Blow (Fencing + Anatomy)
-					li 10% Melee Damage Bonus (Tactics)
-			
+				h2 News
+				h3 April 24, 2017
+				p 
+					| Welcome to UOPlanner.com! Go ahead and make some skill templates and share freely.
+					| If you have any questions, comments, or suggections contact Kilgore Trout on the
+					| <a href="http://uorforum.com" target="_blank">UORenaissance forums</a>.
+
 		section#sharing
 			h3 Share
 			.link http://uoplanner.com/8fh37/stealth-fencer

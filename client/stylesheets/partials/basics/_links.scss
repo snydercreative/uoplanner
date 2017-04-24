@@ -1,0 +1,9 @@
+a {
+	&:link, &:visited {
+		color: $yellow;
+	}
+
+	&:hover, &:active {
+		color: white;
+	}
+}
