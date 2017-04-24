@@ -7,7 +7,7 @@ const webRoutes = require('./server/web');
 
 const mongoUsername = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
-const connectionString = `mongodb://${mongoUsername}:${mongoPassword}@127.0.0.1:27017/UOPlanner`;
+const connectionString = `mongodb://${mongoUsername}:${mongoPassword}@127.0.0.1:27017/uoplanner`;
 
 mongoose.connect(connectionString);
 
