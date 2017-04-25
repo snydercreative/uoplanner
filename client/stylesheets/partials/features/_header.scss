@@ -29,7 +29,8 @@ body > header {
 			width: 100%;
 			color: $darkSlate;
 			text-decoration: none;
-
+			min-width: 150px;
+			
 			i {
 				display: inline-block;
 				margin-left: 2em;
