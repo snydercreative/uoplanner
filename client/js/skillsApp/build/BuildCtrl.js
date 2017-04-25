@@ -62,6 +62,25 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 		angular.element('.modal-wrapper.active').removeClass('active');
 	};
 
+
+	self.removeSkill = $event => {
+	
+		const $target = angular.element($event.currentTarget),
+			$row = $target.closest('tr'),
+			skillName = $target.attr('data-skill-name'),
+			skillValue = $target.attr('data-skill-value') * 1;
+
+		skillTotal -= skillValue;
+
+		for (let i = 0; i < self.skills.length; i++) {
+			if (self.skills[i].name === skillName) {		
+				self.skills.splice(i, 1);
+				$row.detach();
+				return;
+			}
+		}
+	};
+
 	self.addSkill = (skill) => {
 
 		if (skillTotal + skill.value > skillCap) {

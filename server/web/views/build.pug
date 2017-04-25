@@ -34,6 +34,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 								td
 							tr(ng-if="build.skills.length > 0" ng-repeat="skill in build.skills")
 								td {{skill.name}}
+									span.remove(ng-click="build.removeSkill($event)" data-skill-name="{{skill.name}}" data-skill-value="{{skill.value}}") Remove
 								td {{skill.value}}
 											
 					button(ng-click="build.displayAddSkillModal()") Add Skill

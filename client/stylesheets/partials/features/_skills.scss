@@ -1,0 +1,20 @@
+.skills {
+	td {
+		.remove {
+			display: inline-block;
+			float: right;
+			margin-right: 1em;
+			font-size: .8em;
+			opacity: 0;
+			color: $yellow;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+
+		&:hover {
+			.remove {
+				opacity: 1;
+			}
+		}
+	}
+}
