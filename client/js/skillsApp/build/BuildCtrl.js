@@ -5,8 +5,12 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 		mustSetTemplateNameAndSkillsWarning = "You must set a template name and add skills to save.",
 		mustActuallySetASkillWarning = "You must select a skill and set a value greater than 0.",
 		invalidOrMissingNameWarning = "You must set a valid template name",
-		templateSavedWarning = "Template saved!",
-		pickAValidSkillWarning = "Please pick an actual UO skill.";
+		templateSavedWarning = "Skill template saved!",
+		pickAValidSkillWarning = "Please pick an actual UO skill.",
+		aboveSkillCapWarning = "This would put you over the skill cap.",
+		alreadyHaveSkillWarning = "You already have that skill.",
+		skillTotal = 0,
+		skillCap = 700;
 	
 	self.skills = [];
 	self.templateName = '';
@@ -59,19 +63,34 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 	};
 
 	self.addSkill = (skill) => {
-		if (skill.name && skill.value > 0) {
-			if (self.skillList.indexOf(skill.name) > -1) {
-				self.skills.push(skill);
-				angular.element('.skill-modal .skill-list').slideUp(250);
-				self.dismissModal();
-				warn(changesNotSavedWarning);
-			} else {
-				warn(pickAValidSkillWarning, true);
-			}
 
-		} else {
-			warn(mustActuallySetASkillWarning, true);
+		if (skillTotal + skill.value > skillCap) {
+			warn(aboveSkillCapWarning, true);
+			return;
 		}
+
+		if (!skill.name || skill.value === 0) {
+			warn(mustActuallySetASkillWarning, true);
+			return;
+		}
+
+		if (self.skillList.indexOf(skill.name) === -1) {
+			warn(pickAValidSkillWarning, true);
+			return;
+		}
+		
+		for (let i = 0; i < self.skills.length; i++) {
+			if (self.skills[i].name === skill.name) {
+				warn(alreadyHaveSkillWarning, true);
+				return;
+			}
+		}
+	
+		self.skills.push(skill);
+		skillTotal += skill.value;
+		angular.element('.skill-modal .skill-list').slideUp(250);
+		self.dismissModal();
+		warn(changesNotSavedWarning);
 	};
 
 	self.setTemplateName = (templateName) => {
