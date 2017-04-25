@@ -16,24 +16,25 @@ html(lang="en-US" charset="utf-8")
 					i.fa.fa-caret-right
 
 		main.flex.flex-row(ng-controller="HomeCtrl as home")
-			.panel.skills.flex.flex-column.flex-grow-1
-				h2 Newest Templates
-				table
-					thead
-						tr
-							th.flex Name
-							th Date Created
-					tbody
-						tr(ng-repeat="recent in home.recentData")
-							td <a href="{{recent.url}}">{{ recent.name }}</a>
-							td {{ recent.lastModified }}
-
-			.panel.perks.flex.flex-column.flex-grow-1
-				h2 News
-				h3 April 24, 2017
-				p 
-					| Welcome to UOPlanner.com! Go ahead and make some skill templates and share freely.
-					| If you have any questions, comments, or suggections contact Kilgore Trout on the
-					| <a href="http://uorforum.com" target="_blank">UORenaissance forums</a>.
+			.fifty
+				.panel.skills
+					h2 Newest Templates
+					table
+						thead
+							tr
+								th.flex Name
+								th Date Created
+						tbody
+							tr(ng-repeat="recent in home.recentData")
+								td <a href="{{recent.url}}">{{ recent.name }}</a>
+								td {{ recent.lastModified }}
+			.fifty
+				.panel.perks
+					h2 News
+					h3 April 24, 2017
+					p 
+						| Welcome to UOPlanner.com! Go ahead and make some skill templates and share freely.
+						| If you have any questions, comments, or suggections contact Kilgore Trout on the
+						| <a href="http://uorforum.com" target="_blank">UORenaissance forums</a>.
 
 		include includes/footer.pug
