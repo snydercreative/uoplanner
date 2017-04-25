@@ -4,7 +4,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 
 	include includes/head.pug
 
-	body.flex.flex-column(ng-controller="BuildCtrl as build")
+	body.flex.flex-column(ng-cloak ng-controller="BuildCtrl as build")
 		
 		.warning(style="display: none")
 			p  Error.		
@@ -19,32 +19,34 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					i.fa.fa-caret-right
 
 		main.flex.flex-row.build
-			.panel.skills.flex.flex-column.flex-grow-1
-				h2 Skills
+			.fifty
+				.panel.skills
+					h2 Skills
+					
+					table
+						thead
+							tr
+								th Name
+								th Points
+						tbody
+							tr(ng-if="build.skills.length === 0")
+								td Add a skill!
+								td
+							tr(ng-if="build.skills.length > 0" ng-repeat="skill in build.skills")
+								td {{skill.name}}
+								td {{skill.value}}
+											
+					button(ng-click="build.displayAddSkillModal()") Add Skill
+						i.fa.fa-caret-right
+
+					button.btn-bottom(ng-click="build.saveTemplate()") Save Template
+						i.fa.fa-caret-right
 				
-				table
-					thead
-						tr
-							th Name
-							th Points
-					tbody
-						tr(ng-if="build.skills.length === 0")
-							td Add a skill!
-							td
-						tr(ng-if="build.skills.length > 0" ng-repeat="skill in build.skills")
-							td {{skill.name}}
-							td {{skill.value}}
-										
-				button(ng-click="build.displayAddSkillModal()") Add Skill
-					i.fa.fa-caret-right
-
-				button.btn-bottom(ng-click="build.saveTemplate()") Save Template
-					i.fa.fa-caret-right
-
-			.panel.perks.flex.flex-column.flex-grow-1
-				h2 Perks
-				ul 
-					li Coming soon!
+			.fifty
+				.panel.perks
+					h2 Perks
+					ul 
+						li Coming soon!
 			
 		section#sharing
 			h3 Share

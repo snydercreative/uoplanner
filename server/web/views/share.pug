@@ -16,23 +16,25 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					i.fa.fa-caret-right
 
 		main.flex.flex-row
-			.panel.skills.flex.flex-column.flex-grow-1
-				h2 Skills
-				table
-					thead
-						tr
-							th Name
-							th Points
-					tbody
-						tr(ng-repeat="skill in share.skills")
-							td {{ skill.name }}
-							td {{ skill.value }}
+			.fifty
+				.panel.skills
+					h2 Skills
+					table
+						thead
+							tr
+								th Name
+								th Points
+						tbody
+							tr(ng-repeat="skill in share.skills")
+								td {{ skill.name }}
+								td {{ skill.value }}
 
-			.panel.perks.flex.flex-column.flex-grow-1
-				h2 Perks
-				ul 
-					li Coming soon!
-			
+			.fifty
+				.panel.perks
+					h2 Perks
+					ul 
+						li Coming soon!
+				
 		section#sharing
 			h3 Share
 			.link {{ share.shareUrl }}
