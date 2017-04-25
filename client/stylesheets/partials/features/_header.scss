@@ -11,22 +11,43 @@ body > header {
 			border: none;
 		}
 
-		button {
-			font-size: .25em;
-			display: inline-block;
-			margin-left: 1em;
-			width: auto;
-
-			i {
-				display: inline-block;
-				margin-left: 2em;
-			}
-		}
 	}
 
 	#skillcap {
 		line-height: 75px;
 		font-size: 36px;
 		display: inline-block;
+	}
+
+	.button-wrapper {
+		float: right;
+	
+		button, .button {
+			font-size: .8em;
+			display: block;
+			margin-right: 1em;
+			width: 100%;
+			color: $darkSlate;
+			text-decoration: none;
+
+			i {
+				display: inline-block;
+				margin-left: 2em;
+			}
+
+			&:hover, &:active {
+				color: white;
+			}
+
+			&.donate {
+				margin-top: 1em;
+				background: #339933;
+				color: white;
+
+				&:hover {
+					background: rgba(#393, .25);
+				}
+			}
+		}
 	}
 }

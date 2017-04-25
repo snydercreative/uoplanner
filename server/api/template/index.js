@@ -1,6 +1,7 @@
 const routes = require('express').Router();
 const save = require('./save');
 const get = require('./get');
+const recent = require('./recent');
 
 const saveHandler = (req, res) => {
 	save.save(req.body, query => {
@@ -17,7 +18,16 @@ const getHandler = (req, res) => {
 	});
 };
 
+const recentHandler = (req, res) => {
+	const count = 8;
+
+	recent.get(count, results => {
+		res.status(200).json(results);
+	});
+};
+
 routes.post('/save', saveHandler);
 routes.get('/get/:templateId/:urlName', getHandler);
+routes.get('/recent', recentHandler);
 
 module.exports = routes;

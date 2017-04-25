@@ -9,37 +9,24 @@ html(lang="en-US" charset="utf-8")
 		header
 			h1 UOPlanner
 			#skillcap For alt-o-holics, by alt-o-holics
+			.button-wrapper
+				a.button(href="/build") Create Template
+					i.fa.fa-caret-right
+				a.button.donate(href="https://www.patreon.com/kilgoretrout" target="_blank") Donate
+					i.fa.fa-caret-right
 
-		main.flex.flex-row(ng-controller="ShareCtrl as share")
+		main.flex.flex-row(ng-controller="HomeCtrl as home")
 			.panel.skills.flex.flex-column.flex-grow-1
 				h2 Newest Templates
 				table
 					thead
 						tr
-							th Name
+							th.flex Name
 							th Date Created
 					tbody
-						tr
-							td Fencing
-							td 100
-						tr
-							td Tactics
-							td 100
-						tr
-							td Anatomy
-							td 100
-						tr
-							td Healing
-							td 100
-						tr
-							td Resisting Spells
-							td 100
-						tr
-							td Hiding
-							td 100
-						tr
-							td Stealth
-							td 100
+						tr(ng-repeat="recent in home.recentData")
+							td <a href="{{recent.url}}">{{ recent.name }}</a>
+							td {{ recent.lastModified }}
 
 			.panel.perks.flex.flex-column.flex-grow-1
 				h2 News

@@ -10,8 +10,13 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			p  Error.		
 
 		header
-			h1#templateName(ng-click="build.displayTemplateNameModal()") New Template (click to rename)
+			h1#templateName(ng-click="build.displayTemplateNameModal()") (Click to rename)
 			#skillcap 700 skill cap
+			.button-wrapper
+				a.button(href="/build") Create Template
+					i.fa.fa-caret-right
+				a.button.donate(href="https://www.patreon.com/kilgoretrout" target="_blank") Donate
+					i.fa.fa-caret-right
 
 		main.flex.flex-row.build
 			.panel.skills.flex.flex-column.flex-grow-1
@@ -46,7 +51,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			.link.inactive Save template to generate sharing link
 			button(style="display: none" data-clipboard-target="#sharing .link") Copy
 				
-		.modal-wrapper
+		.modal-wrapper.build
 			.modal.skill-modal.flex
 				.panel
 					.modal-warning.warning(style="display: none")
@@ -70,7 +75,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template
 						i.fa.fa-caret-right
 
-		.modal-wrapper
+		.modal-wrapper.build
 			.modal.name-modal.flex
 				.panel
 					.modal-warning.warning(style="display: none")
