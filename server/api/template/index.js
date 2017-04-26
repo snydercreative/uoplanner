@@ -2,6 +2,7 @@ const routes = require('express').Router();
 const save = require('./save');
 const get = require('./get');
 const recent = require('./recent');
+const naughty = require('./naughty');
 
 const saveHandler = (req, res) => {
 	save.save(req.body, query => {
@@ -26,8 +27,17 @@ const recentHandler = (req, res) => {
 	});
 };
 
+const naughtyHandler = (req, res) => {
+	const templateName = req.params.templateName;
+
+	naughty.get(templateName, isNaughty => {
+		res.status(200).json({ isNaughty });
+	});
+};
+
 routes.post('/save', saveHandler);
 routes.get('/get/:templateId/:urlName', getHandler);
 routes.get('/recent', recentHandler);
+routes.get('/naughty/:templateName', naughtyHandler);
 
 module.exports = routes;

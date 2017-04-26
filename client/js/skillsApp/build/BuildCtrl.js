@@ -1,4 +1,4 @@
-skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', function(templateService, skillListService) {
+skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naughtyService', function(templateService, skillListService, naughtyService) {
 
 	let self = this,
 		changesNotSavedWarning = "Your template has unsaved changes.",
@@ -9,6 +9,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 		pickAValidSkillWarning = "Please pick an actual UO skill.",
 		aboveSkillCapWarning = "This would put you over the skill cap.",
 		alreadyHaveSkillWarning = "You already have that skill.",
+		naughtyNameWarning = "Please pick a different name. You know why.",
 		skillTotal = 0,
 		skillCap = 700;
 	
@@ -113,22 +114,26 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 	};
 
 	self.setTemplateName = (templateName) => {
-		let urlName = templateName
-			.toLowerCase()
-			.trim()
-			.replace(/\s/g, "_")
-			.replace(/\W/g, "")
-			.replace(/_/g, "-")
-			.replace(/--/g, "-");
+		if (isNameCool(templateName)) {
+			let urlName = templateName
+				.toLowerCase()
+				.trim()
+				.replace(/\s/g, "_")
+				.replace(/\W/g, "")
+				.replace(/_/g, "-")
+				.replace(/--/g, "-");
 
-		if (urlName) {
-			self.templateName = templateName;
-			angular.element('#templateName').text(templateName);
-			self.dismissModal();
-			warn(changesNotSavedWarning);
+			if (urlName) {
+				self.templateName = templateName;
+				angular.element('#templateName').text(templateName);
+				self.dismissModal();
+				warn(changesNotSavedWarning);
+			} else {
+				warn(invalidOrMissingNameWarning, true);
+			}	
 		} else {
-			warn(invalidOrMissingNameWarning, true);
-		}		
+			warn(naughtyNameWarning, true);
+		}
 	};
 
 	self.saveTemplate = () => {
@@ -160,6 +165,10 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', functi
 			const url = window.location.origin + `/share/${templateId}/${urlName}`;
 			angular.element('#sharing .link').removeClass('inactive').text(url);
 			angular.element('#sharing button').show();
+		},
+
+		isNameCool = templateName => {
+			return naughtyService.isNaughty(templateName);
 		};
 
 }]);
