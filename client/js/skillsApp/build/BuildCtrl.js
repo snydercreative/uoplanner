@@ -113,27 +113,30 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		warn(changesNotSavedWarning);
 	};
 
-	self.setTemplateName = (templateName) => {
-		if (isNameCool(templateName)) {
-			let urlName = templateName
-				.toLowerCase()
-				.trim()
-				.replace(/\s/g, "_")
-				.replace(/\W/g, "")
-				.replace(/_/g, "-")
-				.replace(/--/g, "-");
+	self.setTemplateName = (templateName) => {		
+		let urlName = templateName
+			.toLowerCase()
+			.trim()
+			.replace(/\s/g, "_")
+			.replace(/\W/g, "")
+			.replace(/_/g, "-")
+			.replace(/--/g, "-");
 
-			if (urlName) {
-				self.templateName = templateName;
-				angular.element('#templateName').text(templateName);
-				self.dismissModal();
-				warn(changesNotSavedWarning);
-			} else {
-				warn(invalidOrMissingNameWarning, true);
-			}	
+		if (urlName) {
+			isNameCool(templateName, isNaughty => {
+				if (isNaughty) {
+					warn(naughtyNameWarning, true);
+					return;
+				} else {
+					self.templateName = templateName;
+					angular.element('#templateName').text(templateName);
+					self.dismissModal();
+					warn(changesNotSavedWarning);
+				}	
+			});		
 		} else {
-			warn(naughtyNameWarning, true);
-		}
+			warn(invalidOrMissingNameWarning, true);
+		}	
 	};
 
 	self.saveTemplate = () => {
@@ -167,8 +170,10 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 			angular.element('#sharing button').show();
 		},
 
-		isNameCool = templateName => {
-			return naughtyService.isNaughty(templateName);
+		isNameCool = (templateName, callback) => {
+			naughtyService.isNaughty(templateName, isNaughty => {
+				callback(isNaughty.isNaughty);
+			});
 		};
 
 }]);
