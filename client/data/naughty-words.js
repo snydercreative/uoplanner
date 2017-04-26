@@ -29,5 +29,7 @@ module.exports = { "wordList": [
 	"spic",
 	"towelhead",
 	"chink",
-	"chinaman"
+	"chinaman",
+	"<",
+	">"
 ]}
