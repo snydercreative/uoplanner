@@ -1,0 +1,28 @@
+doctype html
+
+html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
+
+	include includes/head.pug
+
+	body.flex.flex-column(ng-controller="SearchCtrl as search")
+			
+		header
+			h1 Search Results
+			#skillcap {{ search.searchTerms }}
+			include includes/header-menu.pug
+
+		main.flex.flex-row
+			.panel.search-results
+				h2 Skill Matches
+				p(ng-if="!search.skillResults.length") There were no skill matches.
+				ul(ng-if="search.skillResults.length")
+					li(ng-repeat="result in search.skillResults")
+						a(href="{{result.url}}") {{ result.name }}
+
+				h2 Template Matches
+				p(ng-if="!search.nameResults.length") There were no template matches.
+				ul(ng-if="search.nameResults.length")
+					li(ng-repeat="result in search.nameResults")
+						a(href="{{result.url}}") {{ result.name }}
+					
+		include includes/footer.pug

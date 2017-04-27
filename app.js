@@ -23,6 +23,6 @@ app.use('/api/v1', apiRoutes);
 app.use('/', webRoutes);
 
 app.set('view engine', 'pug');
-app.set('views', ['server/web/views']);
+app.set('views', ['server/web/_views']);
 
 app.listen(1234);
