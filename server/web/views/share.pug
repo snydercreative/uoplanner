@@ -9,11 +9,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 		header
 			h1 {{ share.templateName }}
 			#skillcap 700 skill cap
-			.button-wrapper
-				a.button(href="/build") Create Template
-					i.fa.fa-caret-right
-				a.button.donate(href="https://www.patreon.com/kilgoretrout" target="_blank") Donate
-					i.fa.fa-caret-right
+			include includes/header-menu.pug
 
 		main.flex.flex-row
 			.fifty

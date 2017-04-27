@@ -1,0 +1,74 @@
+.button-wrapper {
+	position: relative;
+	
+	.hamburger-menu {
+		display: inline-block;
+		position: relative;
+
+		button {
+			position: relative;
+			display: inline-block;
+			right: -1em;
+			top: 20px;
+			width: 40px;
+			min-width: auto;
+			text-align: center;
+
+			i {
+				margin-left: 0;
+			}
+
+		}		
+	
+		nav {
+			position: absolute;
+			z-index: 100;
+			right: 0;
+			top: 64px;
+			width: 200px;
+			box-shadow: 0 5px 10px black;
+
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				border: 1px solid white;
+				background: $darkSlate;
+
+				li {
+
+					a {
+						text-decoration: none;
+						color: white;
+						display: block;
+						padding: .5em;
+					}
+
+					&:hover {
+						background: $yellow;
+
+						a {
+							text-decoration: none;
+							color: $darkSlate;
+						}
+
+					}
+
+					&.donate {
+						&:hover {
+							background: $green;
+
+							a {
+								text-decoration: none;
+								color: white;
+							}
+
+						}
+					}
+				}				
+			}
+		}
+
+	}
+
+}

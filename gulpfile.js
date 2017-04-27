@@ -32,6 +32,7 @@ gulp.task('js', () => {
 	return gulp.src([
 			'client/js/utility/namespacer.js', 
 			'client/js/utility/**/*.js', 
+			'client/js/*.js', 
 			'client/js/skillsApp/skillsApp.js', 
 			'client/js/skillsApp/services/**/*.js', 
 			'client/js/skillsApp/**/*.js'])
