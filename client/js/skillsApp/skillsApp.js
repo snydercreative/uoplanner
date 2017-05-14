@@ -1,4 +1,4 @@
-const skillsApp = angular.module('skillsApp', [])
+const skillsApp = angular.module('skillsApp', ['ngTagsInput'])
 	.config(['$locationProvider', function($locationProvider) {
 		$locationProvider.html5Mode({
 			enabled: true,

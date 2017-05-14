@@ -5,7 +5,7 @@ skillsApp.factory('skillListService', ['$http', function($http) {
 		$http.get("/data/skills.json")
 			.then(
 				successResponse => {
-					callback(successResponse.data.skills);
+					callback(successResponse.data);
 				}, 
 				errorResponse => {
 					console.log(errorResponse);
