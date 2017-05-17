@@ -2,7 +2,7 @@ skillsApp.factory('searchService', ['$http', 'skillListService', function($http,
 
 	const findSkills = (searchTerms, callback) => {
 			$http.get('/api/v1/search/skills?q=' + searchTerms)
-				.done(
+				.then(
 					successResponse => {
 						callback(successResponse.data);
 					},
@@ -14,7 +14,7 @@ skillsApp.factory('searchService', ['$http', 'skillListService', function($http,
 		
 		findNames = (searchTerms, callback) => {
 			$http.get('/api/v1/search/names?q=' + searchTerms)
-				.done(
+				.then(
 					successResponse => {
 						callback(successResponse.data);
 					},
