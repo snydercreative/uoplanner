@@ -22,7 +22,7 @@ html(lang="en-US" charset="utf-8")
 								th Date Created
 						tbody
 							tr(ng-repeat="recent in home.recentData")
-								td <a href="{{recent.url}}">{{ recent.name }}</a>
+								td <a href="{{recent.url}}" target="_self">{{ recent.name }}</a>
 								td {{ recent.lastModified }}
 			.fifty
 				.panel.perks
