@@ -1,4 +1,4 @@
-.modal-wrapper.search
+.modal-wrapper.search(ng-controller="SearchCtrl as search")
 	.modal.name-modal.flex
 		.panel
 			.modal-warning.warning(style="display: none")
@@ -7,5 +7,9 @@
 			h2 Find a template
 			p Search the collection of templates. You can search the template titles, or type in a skill to see all templates using that skill.
 			input#searchBox(type="text" placeholder="Search the skill templates")
+
+			tags-input(ng-model="search.tags")
+				auto-complete(source="search.skillsForAutocomplete")
+
 			button#searchButton.btn-bottom Search
 				i.fa.fa-caret-right
