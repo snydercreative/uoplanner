@@ -7,6 +7,12 @@ skillsApp.controller('SearchCtrl', ['$location', 'searchService', 'skillListServ
 	self.nameResults = [];
 	
 	searchService.findSkills(self.searchTerms, skillResults => {
+
+		angular.forEach(skillResults, skillResult => {
+			let tempDate = new Date(skillResult.lastModified);
+			skillResult.lastModified = tempDate.toLocaleDateString() + ' @ ' + tempDate.toLocaleTimeString();
+		});
+
 		self.skillResults = skillResults;
 	});
 

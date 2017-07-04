@@ -55,9 +55,13 @@ const templateModel = require('../models/templateModel'),
 	},
 
 	recent = (count, callback) => {
-		templateModel.find({}, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1 }).sort({ lastModified: -1 }).limit(count).exec((err, models) => {
-			callback(models);
-		});
+		templateMode	
+			.find({}, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1 })
+			.sort({ lastModified: -1 })
+			.limit(count)
+			.exec((err, models) => {
+				callback(models);
+			});
 	},
 
 	findBySkills = (skills, callback) => {
@@ -65,7 +69,13 @@ const templateModel = require('../models/templateModel'),
 		_.each(skills, elem => {
 			compositeArr.push({ $elemMatch: { name: elem } });
 		});
-		templateModel.find({ skills: { $all: compositeArr }}, 'name templateId urlName', callback);
+		
+		templateModel
+			.find({ skills: { $all: compositeArr }}, 'name templateId lastModified urlName')
+			.sort({lastModified: -1})
+			.exec((err, models) => {
+				callback(models);
+			});
 	};
 
 module.exports = { save, get, recent, findBySkills };

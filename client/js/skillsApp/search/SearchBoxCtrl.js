@@ -2,7 +2,7 @@ skillsApp.controller('SearchBoxCtrl', ['skillListService', function(skillListSer
 
 	let self = this;
 
-	self.skillTags = [];
+	self.skillTags = [];	
 
 	skillListService.getAll(skills => {
 		self.skills = skills;
@@ -13,11 +13,11 @@ skillsApp.controller('SearchBoxCtrl', ['skillListService', function(skillListSer
 	};
 
 	self.addSkillTag = selectedItem => {
-		if (self.skillTags.indexOf(selectedItem.skill) === -1)
+		if (self.skillTags.indexOf(selectedItem.skill) === -1 && self.skillTags.length < 3)
 			self.skillTags.push(selectedItem.skill);
 
 		self.skillName = '';
-		angular.element('template-search-modal .skill-list').slideUp(250);
+		angular.element('#template-search-modal .skill-list').slideUp(250);
 	};
 
 	self.search = () => {

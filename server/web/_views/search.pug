@@ -8,19 +8,24 @@ html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
 			
 		header
 			h1 Search Results
-			#skillcap {{ search.searchTerms }}
+
 			include includes/header-menu.pug
 
 		main.flex.flex-row
 			.panel.search-results
 				h2 Skill Matches
 				p(ng-if="!search.skillResults.length") There were no skill matches.
-				ul(ng-if="search.skillResults.length")
-					li(ng-repeat="result in search.skillResults")
-						a(href="/share/{{result.templateId}}/{{result.urlName}}" target="_self") {{ result.name }}
+				table(ng-if="search.skillResults.length")
+					tr
+						th Template Name
+						th Date Submitted
+					tr(ng-repeat="result in search.skillResults")
+						td
+							a(href="/share/{{result.templateId}}/{{result.urlName}}" target="_self") {{ result.name }}
+						td {{ result.lastModified }}
 
-				h2 Template Matches
-				p(ng-if="!search.nameResults.length") There were no template matches.
+				h2 Template Name Matches
+				p(ng-if="!search.nameResults.length") There were no template name matches.
 				ul(ng-if="search.nameResults.length")
 					li(ng-repeat="result in search.nameResults")
 						a(href="{{result.url}}") {{ result.name }}
