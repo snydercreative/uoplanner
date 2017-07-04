@@ -3,7 +3,7 @@ const routes = require('express').Router(),
 	names = require('./names');
 
 const skillSearchHandler = (req, res) => {
-		skills.find(req.query.q, results => {
+		skills.find(req.query.q, (err, results) => {
 			res.status(200).json(results);
 		});
 	},

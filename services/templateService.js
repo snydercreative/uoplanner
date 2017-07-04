@@ -1,5 +1,6 @@
 const templateModel = require('../models/templateModel'),
 	numberTools = require('../utility/numberTools'),
+	_ = require('lodash'),
 
 	save = (skills, templateName, templateId, callback) => {
 
@@ -57,6 +58,14 @@ const templateModel = require('../models/templateModel'),
 		templateModel.find({}, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1 }).sort({ lastModified: -1 }).limit(count).exec((err, models) => {
 			callback(models);
 		});
+	},
+
+	findBySkills = (skills, callback) => {
+		let compositeArr = [];
+		_.each(skills, elem => {
+			compositeArr.push({ $elemMatch: { name: elem } });
+		});
+		templateModel.find({ skills: { $all: compositeArr }}, 'name templateId urlName', callback);
 	};
 
-module.exports = { save, get, recent };
+module.exports = { save, get, recent, findBySkills };

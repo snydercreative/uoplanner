@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	templateSchema = new Schema({
