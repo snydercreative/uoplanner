@@ -1,15 +1,24 @@
-.modal-wrapper.search(ng-controller="SearchCtrl as search")
-	.modal.name-modal.flex
+.modal-wrapper.search(ng-controller="SearchBoxCtrl as searchBox")
+	.modal.skill-modal.flex
 		.panel
 			.modal-warning.warning(style="display: none")
-				p Error.		
-			i.fa.fa-times.fa-2x.close
+				p Error.	
+
+			i.fa.fa-times.fa-2x.close(ng-click="searchBox.dismissModal($event)")
+
 			h2 Find a template
+
 			p Search the collection of templates. You can search the template titles, or type in a skill to see all templates using that skill.
-			input#searchBox(type="text" placeholder="Search the skill templates")
 
-			tags-input(ng-model="search.tags")
-				auto-complete(source="search.skillsForAutocomplete")
+			input#skillSearch(type="text" placeholder="Start typing to search skills" ng-model="searchBox.skillName" ng-click="searchBox.displaySkillList()")
+			
+			.skill-list(style="display: none")
+				ul
+					li(ng-click="searchBox.addSkillTag(this)" ng-repeat="skill in searchBox.skills | filter: searchBox.skillName") {{ skill }}
+			
+			.skill-tags(ng-if="searchBox.skillTags")
+				ul
+					li(ng-repeat="skillTag in searchBox.skillTags") {{ skillTag }}
 
-			button#searchButton.btn-bottom Search
+			button#searchBoxButton.btn-bottom(ng-click="searchBox.search()") Search
 				i.fa.fa-caret-right

@@ -10,21 +10,8 @@ skillsApp.factory('skillListService', ['$http', function($http) {
 				errorResponse => {
 					console.log(errorResponse);
 				});
-
-		},
-
-		getForAutocomplete = (callback) => {
-			getAll((skills) => {
-				let skillsForAutocomplete = [];
-
-				angular.foreach(skills, value => {
-					skillsForAutocomplete.push({ text: value });
-				});
-
-				callback(skillsForAutocomplete);
-			});
 		};
 
-	return { getAll, getForAutocomplete };
+	return { getAll };
 
 }]);

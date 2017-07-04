@@ -17,7 +17,7 @@ html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
 				p(ng-if="!search.skillResults.length") There were no skill matches.
 				ul(ng-if="search.skillResults.length")
 					li(ng-repeat="result in search.skillResults")
-						a(href="{{result.url}}") {{ result.name }}
+						a(href="/share/{{result.templateId}}/{{result.urlName}}" target="_self") {{ result.name }}
 
 				h2 Template Matches
 				p(ng-if="!search.nameResults.length") There were no template matches.

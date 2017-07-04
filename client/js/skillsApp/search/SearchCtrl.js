@@ -9,5 +9,5 @@ skillsApp.controller('SearchCtrl', ['$location', 'searchService', 'skillListServ
 	searchService.findSkills(self.searchTerms, skillResults => {
 		self.skillResults = skillResults;
 	});
-	
+
 }]);

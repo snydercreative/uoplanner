@@ -63,7 +63,6 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		angular.element('.modal-wrapper.active').removeClass('active');
 	};
 
-
 	self.removeSkill = $event => {
 	
 		const $target = angular.element($event.currentTarget),
