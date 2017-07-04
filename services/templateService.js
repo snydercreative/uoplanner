@@ -55,7 +55,7 @@ const templateModel = require('../models/templateModel'),
 	},
 
 	recent = (count, callback) => {
-		templateMode	
+		templateModel	
 			.find({}, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1 })
 			.sort({ lastModified: -1 })
 			.limit(count)
