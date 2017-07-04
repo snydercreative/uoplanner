@@ -50,7 +50,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			.link.inactive Save template to generate sharing link
 			button(style="display: none" data-clipboard-target="#sharing .link") Copy
 				
-		.modal-wrapper.build
+		#skills-modal.modal-wrapper.build
 			.modal.skill-modal.flex
 				.panel
 					.modal-warning.warning(style="display: none")
@@ -74,7 +74,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template
 						i.fa.fa-caret-right
 
-		.modal-wrapper.build
+		#template-name-modal.modal-wrapper.build
 			.modal.name-modal.flex
 				.panel
 					.modal-warning.warning(style="display: none")

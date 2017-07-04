@@ -14,40 +14,17 @@ uoplanner.hamburgerMenu = (($, undefined) => {
 		},
 
 		searchToggleHandler = event => {
-			$(".modal-wrapper.search").addClass('active');
+			$("#template-search-modal").addClass('active');
 		},
 
 		searchDismissHandler = event => {
-			$(".modal-wrapper.search").removeClass('active');
-		},
-		
-		searchHandler = event => {
-			const $searchBox = $('#searchBox'),
-				searchValue = $searchBox.val();
-
-			if (!searchValue) {
-				warn(noSearchTermsWarning, true);
-				return;
-			}
-
-			window.location = '/search?q=' + encodeURIComponent(searchValue);
-		},
-
-		warn = warning => {
-			const $warning = $('.modal-wrapper.search .warning');
-			$warning.find('p').text(warning);
-			$warning.slideDown(250, () => {
-				setTimeout(() => {
-					$('.modal-wrapper.search .warning').slideUp(250);
-				}, 1500);
-			});
+			$("#template-search-modal").removeClass('active');
 		},
 
 		init = () => {
 			$('.hamburger-menu button.menu').on('click', hamburgerToggleHandler);
 			$('.hamburger-menu button.search').on('click', searchToggleHandler);
 			$('.modal-wrapper.search .close').on('click', searchDismissHandler);
-			$('#searchButton').on('click', searchHandler);
 		};
 
 	return { init };

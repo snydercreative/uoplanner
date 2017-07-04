@@ -52,11 +52,11 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 
 	self.displayAddSkillModal = () => {
 		self.skillName = '';
-		angular.element('.skill-modal').closest('.modal-wrapper').addClass('active');
+		angular.element('#skills-modal').addClass('active');
 	};
 
 	self.displayTemplateNameModal = () => {
-		angular.element('.build .name-modal').closest('.modal-wrapper').addClass('active');
+		angular.element('#template-name-modal').addClass('active');
 	};
 
 	self.dismissModal = () => {

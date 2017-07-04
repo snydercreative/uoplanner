@@ -9,7 +9,7 @@ skillsApp.controller('SearchBoxCtrl', ['skillListService', function(skillListSer
 	});
 
 	self.displaySkillList = () => {
-		angular.element('.skill-modal .skill-list').slideDown(250);
+		angular.element('#template-search-modal .skill-list').slideDown(250);
 	};
 
 	self.addSkillTag = selectedItem => {
@@ -17,7 +17,7 @@ skillsApp.controller('SearchBoxCtrl', ['skillListService', function(skillListSer
 			self.skillTags.push(selectedItem.skill);
 
 		self.skillName = '';
-		angular.element('.skill-modal .skill-list').slideUp(250);
+		angular.element('template-search-modal .skill-list').slideUp(250);
 	};
 
 	self.search = () => {
