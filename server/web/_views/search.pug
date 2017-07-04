@@ -18,7 +18,7 @@ html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
 				table(ng-if="search.skillResults.length")
 					tr
 						th Template Name
-						th Date Submitted
+						th Date Created
 					tr(ng-repeat="result in search.skillResults")
 						td
 							a(href="/share/{{result.templateId}}/{{result.urlName}}" target="_self") {{ result.name }}
