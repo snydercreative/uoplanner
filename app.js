@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const apiRoutes = require('./server/api');
 const webRoutes = require('./server/web');
+const path = require('path');
 
 const mongoUsername = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
@@ -23,6 +24,6 @@ app.use('/api/v1', apiRoutes);
 app.use('/', webRoutes);
 
 app.set('view engine', 'pug');
-app.set('views', ['server/web/_views']);
+app.set('views', path.join([__dirname, 'server/web/_views']));
 
 app.listen(1234);
