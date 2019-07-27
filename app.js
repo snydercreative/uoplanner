@@ -18,12 +18,12 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', apiRoutes);
 app.use('/', webRoutes);
 
 app.set('view engine', 'pug');
-app.set('views', path.join([__dirname, 'server/web/_views']));
+app.set('views', path.join(__dirname, 'server/web/_views'));
 
 app.listen(1234);
