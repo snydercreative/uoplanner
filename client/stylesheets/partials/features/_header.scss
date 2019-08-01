@@ -1,10 +1,13 @@
 body > header {
 
 	h1 {
-		padding-right: 1em;
-		margin-right: 1em;
-		border-right: 2px solid $yellow;
-		display: inline-block;
+		border-bottom: 2px solid $yellow;
+
+		a:link, a:visited, a:active, a:hover {
+			text-decoration: none;
+			color: white;
+			display: inline-block;
+		}
 
 		input {
 			font-size: inherit;
@@ -25,7 +28,6 @@ body > header {
 		button, .button {
 			font-size: .8em;
 			display: block;
-			margin-right: 1em;
 			width: 100%;
 			color: $darkSlate;
 			text-decoration: none;

@@ -4,12 +4,12 @@ html(lang="en-US" charset="utf-8")
 
 	include includes/head.pug
 
-	body.flex.flex-column(ng-cloak ng-app="skillsApp")
-			
+	body.flex-column(ng-cloak ng-app="skillsApp")
 		header
-			h1 UOPlanner
+			h1 
+				a(href="/") UOPlanner
+				include includes/header-menu.pug
 			#skillcap For alt-o-holics, by alt-o-holics
-			include includes/header-menu.pug
 
 		main.flex.flex-row(ng-controller="HomeCtrl as home")
 			.fifty
