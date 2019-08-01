@@ -17,13 +17,18 @@ uoplanner.hamburgerMenu = (($, undefined) => {
 			$("#template-search-modal").addClass('active');
 		},
 
+		createHandler = event => {
+			window.location.href = "/build";
+		},
+
 		searchDismissHandler = event => {
 			$("#template-search-modal").removeClass('active');
 		},
 
 		init = () => {
-			$('.hamburger-menu button.menu').on('click', hamburgerToggleHandler);
+			//$('.hamburger-menu button.menu').on('click', hamburgerToggleHandler);
 			$('.hamburger-menu button.search').on('click', searchToggleHandler);
+			$('.hamburger-menu button.create').on('click', createHandler);
 			$('.modal-wrapper.search .close').on('click', searchDismissHandler);
 		};
 

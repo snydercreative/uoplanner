@@ -37,7 +37,7 @@ gulp.task('js', () => {
 			'client/js/skillsApp/services/**/*.js', 
 			'client/js/skillsApp/**/*.js'])
 		.pipe(jshint({
-			'esversion': 6
+			'esversion': 6 
 		}))
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(babel({

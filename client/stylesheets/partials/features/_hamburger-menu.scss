@@ -5,19 +5,30 @@
 		display: inline-block;
 		position: relative;
 
-		button {
+		button, a.button {
 			position: relative;
 			display: inline-block;
 			right: -1em;
 			top: 20px;
-			width: 40px;
 			min-width: auto;
+			width: auto;
 			text-align: center;
 
 			i {
 				margin-left: 0;
+				margin-top: 2px;				
+				margin-left: .5em;
 			}
 
+			&.create i {
+				margin-top: 4px;			
+			}
+
+			.header-button-label {
+				font-size: 16px;
+				font-weight: 700;
+				display: inline-block;
+			}
 		}		
 	
 		nav {
@@ -70,5 +81,4 @@
 		}
 
 	}
-
 }
