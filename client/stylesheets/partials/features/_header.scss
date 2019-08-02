@@ -62,3 +62,16 @@ body > header {
 		}
 	}
 }
+
+@media (max-width: 630px) {
+	body > header {
+		#serverRules {
+			line-height: 1.2em;
+			
+			
+			.switcherLink {
+				margin-top: 1em;
+			}
+		}
+	}
+}
