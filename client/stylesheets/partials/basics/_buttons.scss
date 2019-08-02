@@ -15,6 +15,17 @@ button, .button {
 		float: right;
 	}
 
+	&.linkButton {
+		background: none;
+		color: $yellow;
+		padding: 0;
+
+		&:hover {
+			background: none;
+			color: white;
+		}
+	}
+
 	&:hover {
 		color: $yellow;
 		background: rgba($yellow, 0.2);

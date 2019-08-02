@@ -4,14 +4,16 @@ html(lang="en-US" charset="utf-8")
 
 	include includes/head.pug
 
-	body.flex-column(ng-cloak ng-app="skillsApp")
+	body.flex-column(ng-cloak ng-app="skillsApp" ng-controller="HomeCtrl as home")
 		header
 			h1 
 				a(href="/") UOPlanner
 				include includes/header-menu.pug
-			#skillcap For alt-o-holics, by alt-o-holics
+			#serverRules {{home.uoplannerRules.ruleSet}} rules
+				button.linkButton.switcherLink(ng-click="home.switchRules(home.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands')")
+					| Switch to {{home.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands'}}
 
-		main.flex.flex-row(ng-controller="HomeCtrl as home")
+		main.flex.flex-row
 			.fifty
 				.panel.skills
 					h2 Newest Templates
@@ -27,17 +29,12 @@ html(lang="en-US" charset="utf-8")
 			.fifty
 				.panel.perks
 					h2 News
-					h3 July 4, 2017
+					h3 August 1, 2019
 					p
-						| Search is here! Now you can search for templates by selecting the skills you're interested in.
-					h3 April 24, 2017
+						| Welcome to UOPlanner.com! The site is re-released with support for <a href="https://uooutlands.com" target="_blank">UO Outlands</a> in
+						| addition to <a href="http://uorenaissance.com">UO Renaissance</a> rulesets.
 					p 
-						| Welcome to UOPlanner.com! Go ahead and make some skill templates and share freely.
-						| If you have any questions, comments, or suggestions contact Kilgore Trout on the
-						| <a href="http://uorforum.com" target="_blank">UORenaissance forums</a> or in IRC.
-					p
-						| You might notice the green "donate" button. I'm accepting donations to help 
-						| pay for expenses associated with hosting this site. If I get enough donations to
-						| cover costs for the year, I'll remove it. 
+						| Go ahead and make some skill templates and share freely.
+						| If you have any questions, comments, or suggestions contact Kilgore Trout in UOR or UOO's Discord.
 
 		include includes/footer.pug

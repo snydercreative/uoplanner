@@ -11,7 +11,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 
 		header
 			h1#templateName(ng-click="build.displayTemplateNameModal()") (Click to rename)
-			#skillcap 700 skill cap
+			#skillcap {{build.skillTotal}} skill cap
 			include includes/header-menu.pug
 
 		main.flex.flex-row.build

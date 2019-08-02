@@ -1,4 +1,4 @@
-skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naughtyService', function(templateService, skillListService, naughtyService) {
+skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListService', 'naughtyService', function($scope, templateService, skillListService, naughtyService) {
 
 	let self = this,
 		changesNotSavedWarning = "Your template has unsaved changes.",
@@ -10,16 +10,18 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		aboveSkillCapWarning = "This would put you over the skill cap.",
 		alreadyHaveSkillWarning = "You already have that skill.",
 		naughtyNameWarning = "Please pick a different name. You know why.",
-		skillTotal = 0,
-		skillCap = 700;
-	
+		skillTotal = 0;
+
+	const uoplannerSettings = uoplanner.ruleManager.getRules();
+
 	self.skills = [];
 	self.templateName = '';
 	self.urlName = '';
 	self.templateId = '';
 	self.skillList = [];
 	self.rangeValue = 100;
-	self.maximumValue = 120;
+	self.maximumValue = uoplannerSettings.skillMax;
+	self.skillTotal = uoplannerSettings.skillTotal;
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;

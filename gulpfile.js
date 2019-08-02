@@ -9,6 +9,7 @@ const uglify = require('gulp-uglify');
 const stylish = require('jshint-stylish');
 const runSequence = require('run-sequence');
 const cssnano = require('gulp-cssnano');
+const sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('clean', () => {
 	return gulp.src('public')
@@ -36,6 +37,7 @@ gulp.task('js', () => {
 			'client/js/skillsApp/skillsApp.js', 
 			'client/js/skillsApp/services/**/*.js', 
 			'client/js/skillsApp/**/*.js'])
+		.pipe(sourcemaps.init())
 		.pipe(jshint({
 			'esversion': 6 
 		}))
@@ -46,6 +48,7 @@ gulp.task('js', () => {
 		.pipe(concat('master.js'))
 		.pipe(uglify())
 		.pipe(rename({suffix: '.min'}))
+		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('public/js'));
 });
 
@@ -54,8 +57,13 @@ gulp.task('move-vendor-js', () => {
 		.pipe(gulp.dest('public/js/vendor'));
 });
 
+gulp.task('html', () => {
+	gulp.src('client/js/skillsApp/_directives/**/*.html')
+		.pipe(gulp.dest('public/views'))
+});
+
 gulp.task('default', ['clean'], (callback) => {
-	runSequence(['scss','js', 'move-data', 'move-vendor-js'], callback);
+	runSequence(['scss','js', 'html', 'move-data', 'move-vendor-js'], callback);
 });
 
 gulp.task('watcher', () => {
@@ -63,4 +71,6 @@ gulp.task('watcher', () => {
 	gulp.watch('client/js/*.js', ['default']);
 	gulp.watch('client/js/utility/**/*.js', ['default']);
 	gulp.watch('client/js/skillsApp/**/*.js', ['default']);
+	gulp.watch('client/js/skillsApp/**/*.html', ['default']);
+	gulp.watch('server/web/_views/**/*.pug', ['default']);
 });

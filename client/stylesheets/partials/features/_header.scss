@@ -16,10 +16,18 @@ body > header {
 
 	}
 
-	#skillcap {
+	#serverRules {
 		line-height: 75px;
 		font-size: 36px;
-		display: inline-block;
+
+		.switcherLink {
+			font-size: 14px;
+			font-weight: 700;
+			margin-bottom: 18px;
+			width: auto;
+			line-height: 1em;
+			display: block;
+		}
 	}
 
 	.button-wrapper {
