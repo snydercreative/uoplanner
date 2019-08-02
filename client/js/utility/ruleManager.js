@@ -45,11 +45,6 @@ uoplanner.ruleManager = (() => {
             console.error('No localStorage.');
         };
 
-    
-    const initialState = getRules() || renaissanceRules;
-
-    setRules(initialState);
-
     return {
         getRules,
         setRules
