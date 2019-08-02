@@ -7,7 +7,7 @@ html(lang="en-US" charset="utf-8")
 	body.flex-column(ng-cloak ng-app="skillsApp" ng-controller="HomeCtrl as home")
 		header
 			h1 
-				a(href="/") UOPlanner
+				a(href="/" target="_self") UOPlanner
 				include includes/header-menu.pug
 			#serverRules {{home.uoplannerRules.ruleSet}} ({{home.uoplannerRules.skillTotal}} cap)
 				button.linkButton.switcherLink(ng-click="home.switchRules(home.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands')")

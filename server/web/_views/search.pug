@@ -7,9 +7,10 @@ html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
 	body.flex.flex-column(ng-controller="SearchCtrl as search")
 			
 		header
-			h1 Search Results
-
-			include includes/header-menu.pug
+			h1 
+				a(href="/" target="_self") UOPlanner
+				include includes/header-menu.pug
+			#serverRules {{search.uoplannerRules.ruleSet}} ({{search.uoplannerRules.skillTotal}} cap)
 
 		main.flex.flex-row
 			.panel.search-results

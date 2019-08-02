@@ -9,6 +9,7 @@ skillsApp.controller('ShareCtrl', ['templateService', '$location', '$scope', fun
 	templateService.get(self.templateId, self.urlName, results => {
 		self.skills = results.skills;
 		self.templateName = results.name;
+		self.ruleSet = results.ruleSet;
 	});
 
 	angular.element('#sharing button').on('click', (event) => {
