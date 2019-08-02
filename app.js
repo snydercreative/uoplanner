@@ -9,7 +9,7 @@ const path = require('path');
 const mongoUsername = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
 const connectionString = `mongodb://${mongoUsername}:${mongoPassword}@127.0.0.1:27017/uoplanner?authSource=admin`;
-console.log(connectionString)
+
 mongoose.connect(connectionString, { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', apiRoutes);
 app.use('/', webRoutes);
