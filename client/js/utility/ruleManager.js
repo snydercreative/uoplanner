@@ -16,9 +16,9 @@ uoplanner.ruleManager = (() => {
 
         getRules = () => {
             if (localStorage) {
-                const settings = localStorage.uoplannerRules || '{}';
+                const settings = localStorage.uoplannerRules;
                 try {
-                    return JSON.parse(settings);
+                    return settings && JSON.parse(settings);
                 } catch (err) {
                     console.error(err);
                     return {};
