@@ -1,23 +1,35 @@
 .button-wrapper {
-	position: relative;
+	justify-self: flex-end;
 	
 	.hamburger-menu {
 		display: inline-block;
 		position: relative;
 
-		button {
+		button, a.button {
 			position: relative;
 			display: inline-block;
-			right: -1em;
-			top: 20px;
-			width: 40px;
 			min-width: auto;
+			width: auto;
 			text-align: center;
+			line-height: 0;
+			height: 38px;
+			padding: 12px;
 
 			i {
-				margin-left: 0;
+				margin-top: 3px;			
+				margin-left: .5em;
+				font-size: 14px;
 			}
 
+			&.search {
+				margin-right: .5em;			
+			}
+
+			.header-button-label {
+				font-size: 16px;
+				font-weight: 700;
+				display: inline-block;
+			}
 		}		
 	
 		nav {
@@ -70,5 +82,31 @@
 		}
 
 	}
+}
 
+@media (max-width: 630px) {
+	body > header {
+		h1 a {
+			&:link,
+			&:visited,
+			&:active,
+			&:hover {
+				display: block;
+				float: none;
+			}
+		}
+	
+	
+		.button-wrapper {
+			float: none !important;
+	
+			.hamburger-menu {
+				button {
+					right: 0;
+				}
+			}
+		}
+
+		#skillcap { display: none; }
+	}	
 }

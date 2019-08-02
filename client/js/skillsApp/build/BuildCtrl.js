@@ -1,4 +1,4 @@
-skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naughtyService', function(templateService, skillListService, naughtyService) {
+skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListService', 'naughtyService', function($scope, templateService, skillListService, naughtyService) {
 
 	let self = this,
 		changesNotSavedWarning = "Your template has unsaved changes.",
@@ -10,18 +10,32 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		aboveSkillCapWarning = "This would put you over the skill cap.",
 		alreadyHaveSkillWarning = "You already have that skill.",
 		naughtyNameWarning = "Please pick a different name. You know why.",
-		skillTotal = 0,
-		skillCap = 700;
-	
+		skillTotal = 0;
+
+	self.uoplannerRules = uoplanner.ruleManager.getRules();
 	self.skills = [];
 	self.templateName = '';
 	self.urlName = '';
 	self.templateId = '';
 	self.skillList = [];
+	self.rangeValue = 100;	
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
 	});
+
+	self.switchRulesModalButtonClick = ruleSet => {
+		self.switchRules(ruleSet);
+		self.dismissModal();
+	};
+
+	self.switchRules = ruleSet => {
+		uoplanner.ruleManager.setRules(ruleSet);
+		skillTotal = 0;
+		self.skills = [];
+		self.templateName = '';
+		self.uoplannerRules = uoplanner.ruleManager.getRules();
+	};
 
 	const clipboard = new Clipboard('#sharing button');
 
@@ -55,6 +69,11 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		angular.element('#skills-modal').addClass('active');
 	};
 
+	self.displaySwitchRulesModal = () => {
+		self.skillName = '';
+		angular.element('#rule-switch-modal').addClass('active');
+	};
+
 	self.displayTemplateNameModal = () => {
 		angular.element('#template-name-modal').addClass('active');
 	};
@@ -82,8 +101,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 	};
 
 	self.addSkill = (skill) => {
-
-		if (skillTotal + skill.value > skillCap) {
+		if (skillTotal + skill.value > self.uoplannerRules.skillTotal) {
 			warn(aboveSkillCapWarning, true);
 			return;
 		}
@@ -140,7 +158,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 
 	self.saveTemplate = () => {
 		if (self.templateName && self.skills.length) {
-			templateService.save(self.skills, self.templateName, '', query => {
+			templateService.save(self.skills, self.templateName, '', self.uoplannerRules.ruleSet, query => {
 				self.templateId = query.templateId;
 				self.urlName = query.urlName;
 				warn(templateSavedWarning);

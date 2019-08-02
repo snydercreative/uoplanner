@@ -2,7 +2,7 @@ const templateModel = require('../models/templateModel'),
 	numberTools = require('../utility/numberTools'),
 	_ = require('lodash'),
 
-	save = (skills, templateName, templateId, callback) => {
+	save = (skills, templateName, templateId, ruleSet, callback) => {
 
 		let urlName = templateName
 			.toLowerCase()
@@ -18,13 +18,15 @@ const templateModel = require('../models/templateModel'),
 			query = { 
 				templateId: templateId, 
 				name: templateName,
-				urlName: urlName
+				urlName: urlName,
+				ruleSet
 			},
 			update = { 
 				templateId: templateId, 
 				name: templateName,
 				lastModified: rightNow,
-				skills: skills
+				skills: skills,
+				ruleSet
 			},
 			options = { 
 				upsert: true, 
@@ -47,16 +49,17 @@ const templateModel = require('../models/templateModel'),
 			} else {
 				const viewModel = { 
 					skills: result.skills, 
-					name: result.name
+					name: result.name,
+					ruleSet: result.ruleSet
 				};
 				callback(viewModel);
 			}
 		});
 	},
 
-	recent = (count, callback) => {
+	recent = (count, ruleSet, callback) => {
 		templateModel	
-			.find({}, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1 })
+			.find({ ruleSet: ruleSet }, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1, ruleSet: 1 })
 			.sort({ lastModified: -1 })
 			.limit(count)
 			.exec((err, models) => {
@@ -71,7 +74,7 @@ const templateModel = require('../models/templateModel'),
 		});
 		
 		templateModel
-			.find({ skills: { $all: compositeArr }}, 'name templateId lastModified urlName')
+			.find({ skills: { $all: compositeArr }}, 'name templateId lastModified urlName ruleSet')
 			.sort({lastModified: -1})
 			.exec((err, models) => {
 				callback(models);

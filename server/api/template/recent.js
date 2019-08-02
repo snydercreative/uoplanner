@@ -1,7 +1,7 @@
 const templateService = require('../../../services/templateService');
 
-const get = (count, callback) => {
-	templateService.recent(count, models => {
+const get = (count, ruleSet, callback) => {
+	templateService.recent(count, ruleSet, models => {
 		callback(models);
 	});
 };

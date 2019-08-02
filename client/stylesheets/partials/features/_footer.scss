@@ -2,7 +2,12 @@ footer {
 	margin-top: 2em;
 
 	h3 {
-		margin-bottom: 0;
+		padding-bottom: 0;
+
+		a:link, a:visited, a:active, a:hover {
+			text-decoration: none;
+			color: white;
+		}
 	}
 
 	nav {
@@ -42,5 +47,13 @@ footer {
 	.copyright {
 		font-size: .65em;
 		opacity: .75;
+	}
+}
+
+@media (max-width: 630px) {
+	footer nav ul li {
+		display: inherit;
+		padding: 0;
+		border-right: none;
 	}
 }
