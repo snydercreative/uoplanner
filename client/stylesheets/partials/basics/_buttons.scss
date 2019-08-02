@@ -24,6 +24,12 @@ button, .button {
 			background: none;
 			color: white;
 		}
+
+		&.templateName {
+			padding-left: 1em;
+			font-weight: 700;
+			font-family: 'Merriweather';
+		}
 	}
 
 	&:hover {

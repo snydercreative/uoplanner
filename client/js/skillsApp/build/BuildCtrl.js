@@ -33,6 +33,7 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 		uoplanner.ruleManager.setRules(ruleSet);
 		skillTotal = 0;
 		self.skills = [];
+		self.templateName = '';
 		self.uoplannerRules = uoplanner.ruleManager.getRules();
 	};
 
@@ -157,7 +158,7 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 
 	self.saveTemplate = () => {
 		if (self.templateName && self.skills.length) {
-			templateService.save(self.skills, self.templateName, '', query => {
+			templateService.save(self.skills, self.templateName, '', self.uoplannerRules.ruleSet, query => {
 				self.templateId = query.templateId;
 				self.urlName = query.urlName;
 				warn(templateSavedWarning);

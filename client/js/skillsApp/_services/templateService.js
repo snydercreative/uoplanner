@@ -1,8 +1,8 @@
 skillsApp.factory('templateService', ['$http', function($http) {
 
-	const save = (skills, templateName, templateId, callback) => {
+	const save = (skills, templateName, templateId, ruleSet, callback) => {
 
-		const postBody = { skills, templateName, templateId };
+		const postBody = { skills, templateName, ruleSet, templateId };
 
 		$http.post("/api/v1/template/save", postBody)
 			.then(

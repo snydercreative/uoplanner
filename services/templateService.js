@@ -2,7 +2,7 @@ const templateModel = require('../models/templateModel'),
 	numberTools = require('../utility/numberTools'),
 	_ = require('lodash'),
 
-	save = (skills, templateName, templateId, callback) => {
+	save = (skills, templateName, templateId, ruleSet, callback) => {
 
 		let urlName = templateName
 			.toLowerCase()
@@ -18,13 +18,15 @@ const templateModel = require('../models/templateModel'),
 			query = { 
 				templateId: templateId, 
 				name: templateName,
-				urlName: urlName
+				urlName: urlName,
+				ruleSet
 			},
 			update = { 
 				templateId: templateId, 
 				name: templateName,
 				lastModified: rightNow,
-				skills: skills
+				skills: skills,
+				ruleSet
 			},
 			options = { 
 				upsert: true, 
@@ -47,7 +49,8 @@ const templateModel = require('../models/templateModel'),
 			} else {
 				const viewModel = { 
 					skills: result.skills, 
-					name: result.name
+					name: result.name,
+					ruleSet: result.ruleSet
 				};
 				callback(viewModel);
 			}

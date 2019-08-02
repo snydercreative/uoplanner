@@ -5,6 +5,7 @@ const mongoose = require('mongoose'),
 		templateId: { type: String, index: true },
 		name: String,
 		urlName: String,
+		ruleSet: String,
 		skills: Array,
 		lastModified: Date
 	});

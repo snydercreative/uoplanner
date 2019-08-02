@@ -26,7 +26,8 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			.fifty
 				.panel.skills
 					h2 Skills
-					
+					h3 Template Name:
+						button.linkButton.templateName(ng-click="build.displayTemplateNameModal()") {{build.templateName || 'Click to edit'}}
 					table
 						thead
 							tr
