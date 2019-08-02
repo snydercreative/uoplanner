@@ -10,7 +10,7 @@ html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
 			h1 
 				a(href="/" target="_self") UOPlanner
 				include includes/header-menu.pug
-			#serverRules {{search.uoplannerRules.ruleSet}} ({{search.uoplannerRules.skillTotal}} cap)
+			#serverRules Search Results
 
 		main.flex.flex-row
 			.panel.search-results
@@ -20,13 +20,15 @@ html(lang="en-US" charset="utf-8" ng-cloak ng-app="skillsApp")
 					tr
 						th Template Name
 						th Date Created
+						th Ruleset
 					tr(ng-repeat="result in search.skillResults")
 						td
 							a(href="/share/{{result.templateId}}/{{result.urlName}}" target="_self") {{ result.name }}
 						td {{ result.lastModified }}
+						td {{ result.ruleSet }}
 
 				h2 Template Name Matches
-				p(ng-if="!search.nameResults.length") There were no template name matches.
+				p(ng-if="!search.nameResults.length") There were no template name matches. It's like there's more programming to be done. *cough*
 				ul(ng-if="search.nameResults.length")
 					li(ng-repeat="result in search.nameResults")
 						a(href="{{result.url}}") {{ result.name }}

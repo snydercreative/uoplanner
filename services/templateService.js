@@ -74,7 +74,7 @@ const templateModel = require('../models/templateModel'),
 		});
 		
 		templateModel
-			.find({ skills: { $all: compositeArr }}, 'name templateId lastModified urlName')
+			.find({ skills: { $all: compositeArr }}, 'name templateId lastModified urlName ruleSet')
 			.sort({lastModified: -1})
 			.exec((err, models) => {
 				callback(models);
