@@ -68,7 +68,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					
 					p Click and drag to set skill value
 					.slider
-						input#skillRange(type="range" min="0" max="100" step="1" ng-model="build.rangeValue")
+						input#skillRange(type="range" min="0" max="{{build.maximumValue}}" step="1" ng-model="build.rangeValue")
 						.value {{build.rangeValue}}
 					
 					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template

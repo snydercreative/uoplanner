@@ -18,6 +18,8 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 	self.urlName = '';
 	self.templateId = '';
 	self.skillList = [];
+	self.rangeValue = 100;
+	self.maximumValue = 120;
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
