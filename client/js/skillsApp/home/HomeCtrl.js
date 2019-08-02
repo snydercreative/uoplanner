@@ -9,7 +9,7 @@ skillsApp.controller('HomeCtrl', ['$http', function($http) {
 		uoplanner.ruleManager.setRules(ruleSet);
 
 		self.uoplannerRules = uoplanner.ruleManager.getRules();
-	}
+	};
 
 	$http.get('/api/v1/template/recent')
 		.then(

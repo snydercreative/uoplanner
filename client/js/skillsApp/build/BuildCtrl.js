@@ -12,20 +12,29 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 		naughtyNameWarning = "Please pick a different name. You know why.",
 		skillTotal = 0;
 
-	const uoplannerSettings = uoplanner.ruleManager.getRules();
-
+	self.uoplannerRules = uoplanner.ruleManager.getRules();
 	self.skills = [];
 	self.templateName = '';
 	self.urlName = '';
 	self.templateId = '';
 	self.skillList = [];
-	self.rangeValue = 100;
-	self.maximumValue = uoplannerSettings.skillMax;
-	self.skillTotal = uoplannerSettings.skillTotal;
+	self.rangeValue = 100;	
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
 	});
+
+	self.switchRulesModalButtonClick = ruleSet => {
+		self.switchRules(ruleSet);
+		self.dismissModal();
+	};
+
+	self.switchRules = ruleSet => {
+		uoplanner.ruleManager.setRules(ruleSet);
+		skillTotal = 0;
+		self.skills = [];
+		self.uoplannerRules = uoplanner.ruleManager.getRules();
+	};
 
 	const clipboard = new Clipboard('#sharing button');
 
@@ -59,6 +68,11 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 		angular.element('#skills-modal').addClass('active');
 	};
 
+	self.displaySwitchRulesModal = () => {
+		self.skillName = '';
+		angular.element('#rule-switch-modal').addClass('active');
+	};
+
 	self.displayTemplateNameModal = () => {
 		angular.element('#template-name-modal').addClass('active');
 	};
@@ -86,8 +100,7 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 	};
 
 	self.addSkill = (skill) => {
-
-		if (skillTotal + skill.value > skillCap) {
+		if (skillTotal + skill.value > self.uoplannerRules.skillTotal) {
 			warn(aboveSkillCapWarning, true);
 			return;
 		}

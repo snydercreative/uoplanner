@@ -9,7 +9,7 @@ html(lang="en-US" charset="utf-8")
 			h1 
 				a(href="/") UOPlanner
 				include includes/header-menu.pug
-			#serverRules {{home.uoplannerRules.ruleSet}} rules
+			#serverRules {{home.uoplannerRules.ruleSet}} ({{home.uoplannerRules.skillTotal}} cap)
 				button.linkButton.switcherLink(ng-click="home.switchRules(home.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands')")
 					| Switch to {{home.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands'}}
 
