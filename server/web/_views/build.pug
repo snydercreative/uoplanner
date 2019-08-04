@@ -38,13 +38,13 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 								td Add a skill!
 								td
 							tr(ng-if="build.skills.length > 0" ng-repeat="skill in build.skills")
-								td {{skill.name}}
-									span.remove(ng-click="build.removeSkill($event)" data-skill-name="{{skill.name}}" data-skill-value="{{skill.value}}") Remove
+								td 
+									button.linkButton(ng-click="build.editSkill(skill.name)") {{skill.name}}
 								td {{skill.value}}
-											
-					button(ng-click="build.displayAddSkillModal()") Add Skill
+									i.fa.fa-lg.fa-times.remove(ng-click="build.removeSkill($event)" data-skill-name="{{skill.name}}" data-skill-value="{{skill.value}}")
+					button(ng-click="build.displayAddSkillModal()") 
+						strong Add Skill ({{build.skillTotal}} total)
 						i.fa.fa-caret-right
-
 					button.btn-bottom(ng-click="build.saveTemplate()") Save Template
 						i.fa.fa-caret-right
 				
@@ -58,7 +58,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			h3 Share
 			.link.inactive Save template to generate sharing link
 			button(style="display: none" data-clipboard-target="#sharing .link") Copy
-				
+							
 		#skills-modal.modal-wrapper.build
 			.modal.skill-modal.flex
 				.panel

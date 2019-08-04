@@ -9,9 +9,8 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 		pickAValidSkillWarning = "Please pick an actual UO skill.",
 		aboveSkillCapWarning = "This would put you over the skill cap.",
 		alreadyHaveSkillWarning = "You already have that skill.",
-		naughtyNameWarning = "Please pick a different name. You know why.",
-		skillTotal = 0;
-
+		naughtyNameWarning = "Please pick a different name. You know why.";
+		
 	self.uoplannerRules = uoplanner.ruleManager.getRules();
 	self.skills = [];
 	self.templateName = '';
@@ -19,6 +18,8 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 	self.templateId = '';
 	self.skillList = [];
 	self.rangeValue = 100;	
+	self.skillName = '';
+	self.skillTotal = 0;
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
@@ -31,7 +32,7 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 
 	self.switchRules = ruleSet => {
 		uoplanner.ruleManager.setRules(ruleSet);
-		skillTotal = 0;
+		self.skillTotal = 0;
 		self.skills = [];
 		self.templateName = '';
 		self.uoplannerRules = uoplanner.ruleManager.getRules();
@@ -82,6 +83,20 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 		angular.element('.modal-wrapper.active').removeClass('active');
 	};
 
+	self.editSkill = skillName => {
+
+		const foundSkill = self.skills.filter(skill => skill.name === skillName);
+
+		if (foundSkill) {
+			self.skillName = foundSkill[0].name;
+			self.rangeValue = foundSkill[0].value;
+			angular.element('#skills-modal').addClass('active');
+			return;
+		}
+
+		warn("Skill not found.", false);
+	};
+
 	self.removeSkill = $event => {
 	
 		const $target = angular.element($event.currentTarget),
@@ -89,7 +104,7 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 			skillName = $target.attr('data-skill-name'),
 			skillValue = $target.attr('data-skill-value') * 1;
 
-		skillTotal -= skillValue;
+		self.skillTotal -= skillValue;
 
 		for (let i = 0; i < self.skills.length; i++) {
 			if (self.skills[i].name === skillName) {		
@@ -100,8 +115,19 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 		}
 	};
 
-	self.addSkill = (skill) => {
-		if (skillTotal + skill.value > self.uoplannerRules.skillTotal) {
+	self.addSkill = (skill) => {		
+		let existingSkillIndex = -1;
+
+		for (let i = 0; i < self.skills.length; i++) {
+			if (self.skills[i].name === skill.name) {	
+				self.skillTotal -= self.skills[i].value;
+				existingSkillIndex = i;
+				break;
+			} 
+		}
+
+
+		if (self.skillTotal + skill.value > self.uoplannerRules.skillTotal) {
 			warn(aboveSkillCapWarning, true);
 			return;
 		}
@@ -116,15 +142,18 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 			return;
 		}
 		
-		for (let i = 0; i < self.skills.length; i++) {
-			if (self.skills[i].name === skill.name) {
-				warn(alreadyHaveSkillWarning, true);
-				return;
-			}
-		}
+		if (self.skills[existingSkillIndex]) {	
+			self.skills[existingSkillIndex].value = skill.value;
+			self.skillTotal = self.skillTotal ? skill.value + self.skillTotal : skill.value;
+			angular.element('.skill-modal .skill-list').slideUp(250);
+			self.dismissModal();
+			warn(changesNotSavedWarning);	
+
+			return;
+		} 
 	
 		self.skills.push(skill);
-		skillTotal += skill.value;
+		self.skillTotal += skill.value;
 		angular.element('.skill-modal .skill-list').slideUp(250);
 		self.dismissModal();
 		warn(changesNotSavedWarning);
