@@ -30,10 +30,10 @@ uoplanner.ruleManager = (() => {
         setRules = (ruleSet) => {
             if (localStorage) {
                 try {
-                    if (ruleSet === 'Outlands') {
-                        localStorage.uoplannerRules = JSON.stringify(outlandsRules);
-                    } else {
+                    if (ruleSet === 'Renaissance') {
                         localStorage.uoplannerRules = JSON.stringify(renaissanceRules);
+                    } else {
+                        localStorage.uoplannerRules = JSON.stringify(outlandsRules);
                     }
 
                     return true;
