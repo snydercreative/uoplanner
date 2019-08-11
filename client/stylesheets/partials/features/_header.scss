@@ -28,6 +28,17 @@ body > header {
 			line-height: 1em;
 			display: block;
 		}
+
+		button.shrink {
+			font-size: 16px;
+			font-weight: 700;
+			margin-top: 1em;
+			width: auto;
+
+			.clone-button-label {
+				margin-right: .5em;
+			}
+		}
 	}
 
 	.button-wrapper {
