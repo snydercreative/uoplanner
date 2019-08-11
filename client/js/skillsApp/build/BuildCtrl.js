@@ -20,6 +20,15 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 	self.rangeValue = 100;	
 	self.skillName = '';
 	self.skillTotal = 0;
+	self.templateId = encodeURIComponent(window.location.pathname.split('/')[2]);
+	self.urlName = encodeURIComponent(window.location.pathname.split('/')[3]);
+
+	if (self.templateId && self.urlName) {
+		templateService.get(self.templateId, self.urlName, results => {
+			self.skills = results.skills;
+			self.ruleSet = results.ruleSet;
+		});
+	}
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
