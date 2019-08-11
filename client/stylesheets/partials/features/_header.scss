@@ -28,6 +28,24 @@ body > header {
 			line-height: 1em;
 			display: block;
 		}
+
+		.shrink {
+			font-size: 16px;
+			font-weight: 700;
+			margin-top: 1em;
+			width: auto;
+			line-height: 1.2em;
+			text-decoration: none;
+			color: $darkSlate;
+
+			&:hover {
+				color: white;
+			}
+
+			.clone-button-label {
+				margin-right: .5em;
+			}
+		}
 	}
 
 	.button-wrapper {

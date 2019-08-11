@@ -1,4 +1,4 @@
-skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListService', 'naughtyService', function($scope, templateService, skillListService, naughtyService) {
+skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'skillListService', 'naughtyService', function($scope, $location, templateService, skillListService, naughtyService) {
 
 	let self = this,
 		changesNotSavedWarning = "Your template has unsaved changes.",
@@ -20,10 +20,23 @@ skillsApp.controller('BuildCtrl', ['$scope', 'templateService', 'skillListServic
 	self.rangeValue = 100;	
 	self.skillName = '';
 	self.skillTotal = 0;
+	self.templateId = encodeURIComponent(window.location.pathname.split('/')[2]);
+	self.urlName = encodeURIComponent(window.location.pathname.split('/')[3]);
+
+	if (self.templateId && self.urlName) {
+		templateService.get(self.templateId, self.urlName, results => {
+			self.skills = results.skills;
+			self.ruleSet = results.ruleSet;
+		});
+	}
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
 	});
+
+	self.changeView = function(view){
+		$location.path(view); // path not hash
+	}
 
 	self.switchRulesModalButtonClick = ruleSet => {
 		self.switchRules(ruleSet);
