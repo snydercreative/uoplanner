@@ -27,6 +27,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 		templateService.get(self.templateId, self.urlName, results => {
 			self.skills = results.skills;
 			self.ruleSet = results.ruleSet;
+			self.skillTotal = self.skills.reduce((acc, curr) => acc + curr.value, 0);
 		});
 	}
 
