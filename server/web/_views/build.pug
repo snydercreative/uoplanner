@@ -15,7 +15,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			//- include includes/header-menu.pug
 		header
 			h1 
-				a(href="/") UOPlanner
+				a(href="/" target="_self") UOPlanner
 				include includes/header-menu.pug
 			#serverRules {{build.uoplannerRules.ruleSet}} ({{build.uoplannerRules.skillTotal}} cap)
 				//- button.linkButton.switcherLink(ng-click="build.switchRules(build.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands')")

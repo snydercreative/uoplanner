@@ -7,7 +7,7 @@ skillsApp.controller('ShareCtrl', ['templateService', '$location', '$scope', fun
 	self.shareUrl = window.location.origin + `/share/${self.templateId}/${self.urlName}`;
 
 	templateService.get(self.templateId, self.urlName, results => {
-		self.skills = results.skills;
+		self.skills = uoplanner.skillSorter.sort(results.skills);
 		self.templateName = results.name;
 		self.ruleSet = results.ruleSet;
 	});
@@ -27,5 +27,4 @@ skillsApp.controller('ShareCtrl', ['templateService', '$location', '$scope', fun
 			}, 500);
 		});
 	});
-
 }]);

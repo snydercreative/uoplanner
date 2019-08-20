@@ -25,7 +25,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 
 	if (self.templateId && self.urlName) {
 		templateService.get(self.templateId, self.urlName, results => {
-			self.skills = results.skills;
+			self.skills = uoplanner.skillSorter.sort(results.skills);
 			self.ruleSet = results.ruleSet;
 			self.skillTotal = self.skills.reduce((acc, curr) => acc + curr.value, 0);
 		});
@@ -161,6 +161,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 			self.skillTotal = self.skillTotal ? skill.value + self.skillTotal : skill.value;
 			angular.element('.skill-modal .skill-list').slideUp(250);
 			self.dismissModal();
+			self.skills = uoplanner.skillSorter.sort(self.skills);
 			warn(changesNotSavedWarning);	
 
 			return;
@@ -168,6 +169,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 	
 		self.skills.push(skill);
 		self.skillTotal += skill.value;
+		self.skills = uoplanner.skillSorter.sort(self.skills);
 		angular.element('.skill-modal .skill-list').slideUp(250);
 		self.dismissModal();
 		warn(changesNotSavedWarning);
@@ -235,5 +237,4 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 				callback(isNaughty.isNaughty);
 			});
 		};
-
 }]);
