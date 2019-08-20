@@ -1,4 +1,4 @@
-skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naughtyService', function(templateService, skillListService, naughtyService) {
+skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'skillListService', 'naughtyService', function($scope, $location, templateService, skillListService, naughtyService) {
 
 	let self = this,
 		changesNotSavedWarning = "Your template has unsaved changes.",
@@ -9,19 +9,48 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		pickAValidSkillWarning = "Please pick an actual UO skill.",
 		aboveSkillCapWarning = "This would put you over the skill cap.",
 		alreadyHaveSkillWarning = "You already have that skill.",
-		naughtyNameWarning = "Please pick a different name. You know why.",
-		skillTotal = 0,
-		skillCap = 700;
-	
+		naughtyNameWarning = "Please pick a different name. You know why.";
+		
+	self.uoplannerRules = uoplanner.ruleManager.getRules();
 	self.skills = [];
 	self.templateName = '';
 	self.urlName = '';
 	self.templateId = '';
 	self.skillList = [];
+	self.rangeValue = 100;	
+	self.skillName = '';
+	self.skillTotal = 0;
+	self.templateId = encodeURIComponent(window.location.pathname.split('/')[2]);
+	self.urlName = encodeURIComponent(window.location.pathname.split('/')[3]);
+
+	if (self.templateId && self.urlName) {
+		templateService.get(self.templateId, self.urlName, results => {
+			self.skills = uoplanner.skillSorter.sort(results.skills);
+			self.ruleSet = results.ruleSet;
+			self.skillTotal = self.skills.reduce((acc, curr) => acc + curr.value, 0);
+		});
+	}
 
 	skillListService.getAll(skillList => {
 		self.skillList = skillList;
 	});
+
+	self.changeView = function(view){
+		$location.path(view); // path not hash
+	}
+
+	self.switchRulesModalButtonClick = ruleSet => {
+		self.switchRules(ruleSet);
+		self.dismissModal();
+	};
+
+	self.switchRules = ruleSet => {
+		uoplanner.ruleManager.setRules(ruleSet);
+		self.skillTotal = 0;
+		self.skills = [];
+		self.templateName = '';
+		self.uoplannerRules = uoplanner.ruleManager.getRules();
+	};
 
 	const clipboard = new Clipboard('#sharing button');
 
@@ -55,12 +84,31 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		angular.element('#skills-modal').addClass('active');
 	};
 
+	self.displaySwitchRulesModal = () => {
+		self.skillName = '';
+		angular.element('#rule-switch-modal').addClass('active');
+	};
+
 	self.displayTemplateNameModal = () => {
 		angular.element('#template-name-modal').addClass('active');
 	};
 
 	self.dismissModal = () => {
 		angular.element('.modal-wrapper.active').removeClass('active');
+	};
+
+	self.editSkill = skillName => {
+
+		const foundSkill = self.skills.filter(skill => skill.name === skillName);
+
+		if (foundSkill) {
+			self.skillName = foundSkill[0].name;
+			self.rangeValue = foundSkill[0].value;
+			angular.element('#skills-modal').addClass('active');
+			return;
+		}
+
+		warn("Skill not found.", false);
 	};
 
 	self.removeSkill = $event => {
@@ -70,7 +118,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 			skillName = $target.attr('data-skill-name'),
 			skillValue = $target.attr('data-skill-value') * 1;
 
-		skillTotal -= skillValue;
+		self.skillTotal -= skillValue;
 
 		for (let i = 0; i < self.skills.length; i++) {
 			if (self.skills[i].name === skillName) {		
@@ -81,9 +129,19 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 		}
 	};
 
-	self.addSkill = (skill) => {
+	self.addSkill = (skill) => {		
+		let existingSkillIndex = -1;
 
-		if (skillTotal + skill.value > skillCap) {
+		for (let i = 0; i < self.skills.length; i++) {
+			if (self.skills[i].name === skill.name) {	
+				self.skillTotal -= self.skills[i].value;
+				existingSkillIndex = i;
+				break;
+			} 
+		}
+
+
+		if (self.skillTotal + skill.value > self.uoplannerRules.skillTotal) {
 			warn(aboveSkillCapWarning, true);
 			return;
 		}
@@ -98,15 +156,20 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 			return;
 		}
 		
-		for (let i = 0; i < self.skills.length; i++) {
-			if (self.skills[i].name === skill.name) {
-				warn(alreadyHaveSkillWarning, true);
-				return;
-			}
-		}
+		if (self.skills[existingSkillIndex]) {	
+			self.skills[existingSkillIndex].value = skill.value;
+			self.skillTotal = self.skillTotal ? skill.value + self.skillTotal : skill.value;
+			angular.element('.skill-modal .skill-list').slideUp(250);
+			self.dismissModal();
+			self.skills = uoplanner.skillSorter.sort(self.skills);
+			warn(changesNotSavedWarning);	
+
+			return;
+		} 
 	
 		self.skills.push(skill);
-		skillTotal += skill.value;
+		self.skillTotal += skill.value;
+		self.skills = uoplanner.skillSorter.sort(self.skills);
 		angular.element('.skill-modal .skill-list').slideUp(250);
 		self.dismissModal();
 		warn(changesNotSavedWarning);
@@ -140,7 +203,7 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 
 	self.saveTemplate = () => {
 		if (self.templateName && self.skills.length) {
-			templateService.save(self.skills, self.templateName, '', query => {
+			templateService.save(self.skills, self.templateName, '', self.uoplannerRules.ruleSet, query => {
 				self.templateId = query.templateId;
 				self.urlName = query.urlName;
 				warn(templateSavedWarning);
@@ -174,5 +237,4 @@ skillsApp.controller('BuildCtrl', ['templateService', 'skillListService', 'naugh
 				callback(isNaughty.isNaughty);
 			});
 		};
-
 }]);

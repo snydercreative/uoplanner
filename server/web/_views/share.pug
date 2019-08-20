@@ -7,10 +7,14 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 	body.flex.flex-column(ng-cloak ng-controller="ShareCtrl as share")
 			
 		header
-			h1 {{ share.templateName }}
-			#skillcap 700 skill cap
-			include includes/header-menu.pug
-
+			h1 
+				a(href="/" target="_self") UOPlanner
+				include includes/header-menu.pug			
+			#serverRules {{share.templateName}} ({{share.ruleSet}})
+				a.button.shrink.pull-right(href="/build/{{share.templateId}}/{{share.urlName}}" target="_self")
+					span.clone-button-label Clone Template
+					i.fa.fa-copy
+				
 		main.flex.flex-row
 			.fifty
 				.panel.skills

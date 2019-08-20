@@ -9,16 +9,25 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 		.warning(style="display: none")
 			p  Error.		
 
+		//- header
+			//- h1#templateName(ng-click="build.displayTemplateNameModal()") (Click to rename)
+			//- #skillcap {{build.skillTotal}} skill cap
+			//- include includes/header-menu.pug
 		header
-			h1#templateName(ng-click="build.displayTemplateNameModal()") (Click to rename)
-			#skillcap 700 skill cap
-			include includes/header-menu.pug
+			h1 
+				a(href="/" target="_self") UOPlanner
+				include includes/header-menu.pug
+			#serverRules {{build.uoplannerRules.ruleSet}} ({{build.uoplannerRules.skillTotal}} cap)
+				//- button.linkButton.switcherLink(ng-click="build.switchRules(build.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands')")
+				button.linkButton.switcherLink(ng-click="build.displaySwitchRulesModal()")
+					| Switch to {{build.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands'}}
 
 		main.flex.flex-row.build
 			.fifty
 				.panel.skills
 					h2 Skills
-					
+					h3 Template Name:
+						button.linkButton.templateName(ng-click="build.displayTemplateNameModal()") {{build.templateName || 'Click to edit'}}
 					table
 						thead
 							tr
@@ -29,13 +38,13 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 								td Add a skill!
 								td
 							tr(ng-if="build.skills.length > 0" ng-repeat="skill in build.skills")
-								td {{skill.name}}
-									span.remove(ng-click="build.removeSkill($event)" data-skill-name="{{skill.name}}" data-skill-value="{{skill.value}}") Remove
+								td 
+									button.linkButton(ng-click="build.editSkill(skill.name)") {{skill.name}}
 								td {{skill.value}}
-											
-					button(ng-click="build.displayAddSkillModal()") Add Skill
+									i.fa.fa-lg.fa-times.remove(ng-click="build.removeSkill($event)" data-skill-name="{{skill.name}}" data-skill-value="{{skill.value}}")
+					button(ng-click="build.displayAddSkillModal()") 
+						strong Add Skill ({{build.skillTotal}} total)
 						i.fa.fa-caret-right
-
 					button.btn-bottom(ng-click="build.saveTemplate()") Save Template
 						i.fa.fa-caret-right
 				
@@ -49,7 +58,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 			h3 Share
 			.link.inactive Save template to generate sharing link
 			button(style="display: none" data-clipboard-target="#sharing .link") Copy
-				
+							
 		#skills-modal.modal-wrapper.build
 			.modal.skill-modal.flex
 				.panel
@@ -68,7 +77,7 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					
 					p Click and drag to set skill value
 					.slider
-						input#skillRange(type="range" min="0" max="100" step="1" ng-model="build.rangeValue")
+						input#skillRange(type="range" min="0" max="{{build.uoplannerRules.skillMax}}" step="1" ng-model="build.rangeValue")
 						.value {{build.rangeValue}}
 					
 					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template
@@ -83,6 +92,19 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					h2 Edit Template Name
 					input#templateName(type="text" placeholder="Enter new template name" ng-model="build.templateName")
 					button.btn-bottom(ng-click="build.setTemplateName(build.templateName)") Change Template Name
+						i.fa.fa-caret-right
+
+		#rule-switch-modal.modal-wrapper.build
+			.modal.switch-modal.flex
+				.panel
+					.modal-warning.warning(style="display: none")
+						p Error.		
+					i.fa.fa-times.fa-2x.close(ng-click="build.dismissModal($event)")
+					h2 Switch to {{build.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands'}}?
+					p
+						| Are you sure? Switching your rule set will clear your build and start you fresh.
+						| Saved builds will not be affected.
+					button.btn-bottom(ng-click="build.switchRulesModalButtonClick(build.uoplannerRules.ruleSet === 'Outlands' ? 'Renaissance' : 'Outlands')") I'm sure!
 						i.fa.fa-caret-right
 
 		include includes/footer.pug

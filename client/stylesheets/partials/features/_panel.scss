@@ -35,3 +35,18 @@
 		padding-bottom: 4em;
 	}
 }
+
+@media (max-width: 990px) {
+	main.flex-row {
+		flex-direction: column;
+	}
+
+	.fifty {
+		width: 100%;
+		
+		&:first-child,
+		&:last-child {
+			margin: 0;
+		}
+	}
+}

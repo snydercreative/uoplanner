@@ -1,7 +1,8 @@
 .flex-grow-1
 
 footer.flex-end
-	h3 UOPlanner
+	h3 
+		a(href="/") UOPlanner
 	nav
 		ul
 			li 
@@ -11,12 +12,19 @@ footer.flex-end
 			li 
 				a(href="http://uorenaissance.com" target="_blank") UORenaissance.com
 			li 
-				a(href="http://uorforum.com/" target="_blank") UORForum.com
+				a(href="https://uooutlands.com" target="_blank") UOOutlands.com
 
 	p.copyright 
 		strong DISCLAIMER
-		| : This is an independent project not affiliated with UORenaissance.com or UORForum.com. But, they rock, and you should check them out.
+		| : This is an independent project not affiliated with UORenaissance.com or UOOutlands.com. But, they rock, and you should check them out.
 
-	p.copyright Copyright &copy; 2017 SnyderCreative, LLC. All rights reserved.
+	p.copyright Copyright &copy; 2019 SnyderCreative, LLC. All rights reserved.
+
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js")
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js")
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-aria.min.js")
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/3.2.0/ng-tags-input.min.js")
+	script(src="/js/vendor/clipboard.min.js")
+	script(src="/js/master.min.js?v=2" defer)
 
 	include sitewide-modals.pug

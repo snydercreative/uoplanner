@@ -21,8 +21,9 @@ const getHandler = (req, res) => {
 
 const recentHandler = (req, res) => {
 	const count = 8;
+	const ruleSet = req.params.ruleSet;
 
-	recent.get(count, results => {
+	recent.get(count, ruleSet, results => {
 		res.status(200).json(results);
 	});
 };
@@ -37,7 +38,7 @@ const naughtyHandler = (req, res) => {
 
 routes.post('/save', saveHandler);
 routes.get('/get/:templateId/:urlName', getHandler);
-routes.get('/recent', recentHandler);
+routes.get('/recent/:ruleSet', recentHandler);
 routes.get('/naughty/:templateName', naughtyHandler);
 
 module.exports = routes;

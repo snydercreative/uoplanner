@@ -2,8 +2,10 @@
   "name": "uoplanner",
   "version": "1.0.0",
   "description": "UO Character Planner (Renaissance era)",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
+    "watch": "gulp && gulp watcher",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +29,7 @@
     "gulp-jshint": "^2.0.4",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^2.1.2",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",

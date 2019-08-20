@@ -3,11 +3,6 @@
 		.remove {
 			display: inline-block;
 			float: right;
-			margin-right: 1em;
-			font-size: .8em;
-			opacity: 0;
-			color: $yellow;
-			text-decoration: underline;
 			cursor: pointer;
 		}
 
@@ -16,5 +11,12 @@
 				opacity: 1;
 			}
 		}
+	}
+
+	.skillTotalDisplay {
+		display: inline-block;
+		float: right;
+		font-weight: 700;
+		padding: .75em;
 	}
 }

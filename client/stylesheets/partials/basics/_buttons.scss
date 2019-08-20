@@ -15,6 +15,23 @@ button, .button {
 		float: right;
 	}
 
+	&.linkButton {
+		background: none;
+		color: $yellow;
+		padding: 0;
+
+		&:hover {
+			background: none;
+			color: white;
+		}
+
+		&.templateName {
+			padding-left: 1em;
+			font-weight: 700;
+			font-family: 'Merriweather';
+		}
+	}
+
 	&:hover {
 		color: $yellow;
 		background: rgba($yellow, 0.2);
