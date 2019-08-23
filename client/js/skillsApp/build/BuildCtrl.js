@@ -14,16 +14,17 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 	self.uoplannerRules = uoplanner.ruleManager.getRules();
 	self.skills = [];
 	self.templateName = '';
-	self.urlName = '';
-	self.templateId = '';
 	self.skillList = [];
 	self.rangeValue = 100;	
 	self.skillName = '';
 	self.skillTotal = 0;
 
-	self.templateId = !self.templateId.length ? self.templateId : encodeURIComponent(window.location.pathname.split('/')[2]);
-	self.urlName = !self.urlName.length ? self.urlName : encodeURIComponent(window.location.pathname.split('/')[3]);
-	
+	const urlTemplateId = encodeURIComponent(window.location.pathname.split('/')[2]);
+	const urlTemplateUrlName = encodeURIComponent(window.location.pathname.split('/')[3]);
+
+	self.templateId = urlTemplateId || '';
+	self.urlName = urlTemplateUrlName || '';
+
 	if (self.templateId && self.urlName) {
 		templateService.get(self.templateId, self.urlName, results => {
 			self.skills = uoplanner.skillSorter.sort(results.skills);
@@ -204,7 +205,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 
 	self.saveTemplate = () => {
 		if (self.templateName && self.skills.length) {
-			templateService.save(self.skills, self.templateName, '', self.uoplannerRules.ruleSet, query => {
+			templateService.save(self.skills, self.templateName, self.templateId, self.uoplannerRules.ruleSet, query => {
 				self.templateId = query.templateId;
 				self.urlName = query.urlName;
 				warn(templateSavedWarning);
