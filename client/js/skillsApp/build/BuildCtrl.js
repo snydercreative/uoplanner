@@ -20,9 +20,10 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 	self.rangeValue = 100;	
 	self.skillName = '';
 	self.skillTotal = 0;
-	self.templateId = encodeURIComponent(window.location.pathname.split('/')[2]);
-	self.urlName = encodeURIComponent(window.location.pathname.split('/')[3]);
 
+	self.templateId = !self.templateId.length ? self.templateId : encodeURIComponent(window.location.pathname.split('/')[2]);
+	self.urlName = !self.urlName.length ? self.urlName : encodeURIComponent(window.location.pathname.split('/')[3]);
+	
 	if (self.templateId && self.urlName) {
 		templateService.get(self.templateId, self.urlName, results => {
 			self.skills = uoplanner.skillSorter.sort(results.skills);
