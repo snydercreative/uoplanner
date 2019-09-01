@@ -19,11 +19,13 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 	self.skillName = '';
 	self.skillTotal = 0;
 
-	const urlTemplateId = encodeURIComponent(window.location.pathname.split('/')[2]);
-	const urlTemplateUrlName = encodeURIComponent(window.location.pathname.split('/')[3]);
+	const urlTemplateId = window.location.pathname.split('/')[2];
+	const urlTemplateUrlName = window.location.pathname.split('/')[3];
 
-	self.templateId = urlTemplateId || '';
-	self.urlName = urlTemplateUrlName || '';
+	if (typeof urlTemplateId !== 'undefined' && typeof urlTemplateUrlName !== 'undefined') {
+		self.templateId = encodeURIComponent(urlTemplateId);
+		self.urlName = encodeURIComponent(urlTemplateUrlName);
+	}
 
 	if (self.templateId && self.urlName) {
 		templateService.get(self.templateId, self.urlName, results => {
