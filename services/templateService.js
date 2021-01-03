@@ -1,9 +1,9 @@
 const templateModel = require('../models/templateModel'),
 	numberTools = require('../utility/numberTools'),
 	_ = require('lodash'),
+	Filter = require('bad-words'),
 
 	save = (skills, templateName, templateId, ruleSet, callback) => {
-
 		let urlName = templateName
 			.toLowerCase()
 			.trim()
@@ -42,14 +42,15 @@ const templateModel = require('../models/templateModel'),
 
 	get = (templateId, urlName, callback) => {
 		const query = { templateId, urlName };
+		const filter = new Filter();
 
 		templateModel.findOne(query, (err, result) => {
 			if (err) {
 				console.log(err);
 			} else {
-				const viewModel = { 
+				const viewModel = result && { 
 					skills: result.skills, 
-					name: result.name,
+					name: filter.clean(result.name),
 					ruleSet: result.ruleSet
 				};
 				callback(viewModel);
@@ -62,8 +63,11 @@ const templateModel = require('../models/templateModel'),
 			.find({ ruleSet: ruleSet }, { _id: 0, name: 1, lastModified: 1, urlName: 1, templateId: 1, ruleSet: 1 })
 			.sort({ lastModified: -1 })
 			.limit(count)
+			.lean()
 			.exec((err, models) => {
-				callback(models);
+				const filter = new Filter();
+
+				callback(models.map(m => ({ ...m, name: filter.clean(m.name) })));
 			});
 	},
 
@@ -76,8 +80,15 @@ const templateModel = require('../models/templateModel'),
 		templateModel
 			.find({ skills: { $all: compositeArr }}, 'name templateId lastModified urlName ruleSet')
 			.sort({lastModified: -1})
+			.lean()
 			.exec((err, models) => {
-				callback(models);
+				const filter = new Filter();
+
+				const filteredModels = models.map((model) => {
+					return { ...model, name: filter.clean(model.name)}
+				});
+
+				callback(filteredModels);
 			});
 	};
 
