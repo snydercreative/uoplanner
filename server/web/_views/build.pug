@@ -74,13 +74,35 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 					.skill-list(style="display: none")
 						ul
 							li(ng-click="build.setSkillInput(this)" ng-repeat="skill in build.skillList | filter: build.skillName") {{ skill }}
-					
+
 					p Click and drag to set skill value
 					.slider
 						input#skillRange(type="range" min="0" max="{{build.uoplannerRules.skillMax}}" step="1" ng-model="build.rangeValue")
 						.value {{build.rangeValue}}
-					
+
 					button.btn-bottom(ng-click="build.addSkill({ name: build.skillName, value: build.rangeValue })") Add Skill to Template
+						i.fa.fa-caret-right
+
+		#related-skills-modal.modal-wrapper.build
+			.modal.skill-modal.flex
+				.panel
+					.modal-warning.warning(style="display: none")
+						p Error.	
+
+					i.fa.fa-times.fa-2x.close(ng-click="build.dismissModal($event)")
+
+					h2 Add Related Skills
+										
+					.skill-list.no-highlight
+						ul
+							li(ng-repeat="suggestedSkill in build.suggestedSkills") {{ suggestedSkill }}
+
+					p Click and drag to set skill values
+					.slider
+						input#skillRange(type="range" min="0" max="{{build.uoplannerRules.skillMax}}" step="1" ng-model="build.rangeValue")
+						.value {{build.rangeValue}}
+
+					button.btn-bottom(ng-click="build.addRelatedSkills(build.suggestedSkills)") Add Skills to Template
 						i.fa.fa-caret-right
 
 		#template-name-modal.modal-wrapper.build
