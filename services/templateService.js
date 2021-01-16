@@ -43,18 +43,22 @@ const templateModel = require('../models/templateModel'),
 	get = (templateId, urlName, callback) => {
 		const query = { templateId, urlName };
 
-		templateModel.findOne(query, (err, result) => {
-			if (err) {
-				console.log(err);
-			} else {
-				const viewModel = { 
-					skills: result.skills, 
-					name: result.name,
-					ruleSet: result.ruleSet
-				};
-				callback(viewModel);
-			}
-		});
+		try {
+			templateModel.findOne(query, (err, result) => {
+				if (err || !result) {
+					console.log(`No template found for template ID ${templateId}.`);
+				} else {
+					const viewModel = { 
+						skills: result.skills, 
+						name: result.name,
+						ruleSet: result.ruleSet
+					};
+					callback(viewModel);
+				}
+			});
+		} catch (err) {
+			console.log(err) 
+		}
 	},
 
 	recent = (count, ruleSet, callback) => {

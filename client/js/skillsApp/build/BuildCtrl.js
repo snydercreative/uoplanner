@@ -13,26 +13,32 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 		
 	self.uoplannerRules = uoplanner.ruleManager.getRules();
 	self.skills = [];
+	self.suggestedSkills = [];
 	self.templateName = '';
-	self.urlName = '';
-	self.templateId = '';
 	self.skillList = [];
 	self.rangeValue = 100;	
 	self.skillName = '';
 	self.skillTotal = 0;
-	self.templateId = encodeURIComponent(window.location.pathname.split('/')[2]);
-	self.urlName = encodeURIComponent(window.location.pathname.split('/')[3]);
+
+	const urlTemplateId = window.location.pathname.split('/')[2];
+	const urlTemplateUrlName = window.location.pathname.split('/')[3];
+
+	if (typeof urlTemplateId !== 'undefined' && typeof urlTemplateUrlName !== 'undefined') {
+		self.templateId = encodeURIComponent(urlTemplateId);
+		self.urlName = encodeURIComponent(urlTemplateUrlName);
+	}
 
 	if (self.templateId && self.urlName) {
 		templateService.get(self.templateId, self.urlName, results => {
-			self.skills = uoplanner.skillSorter.sort(results.skills);
+			self.skills = uoplanner.skillSorter.sort(results.map(item => item.skill));
 			self.ruleSet = results.ruleSet;
 			self.skillTotal = self.skills.reduce((acc, curr) => acc + curr.value, 0);
 		});
 	}
 
-	skillListService.getAll(skillList => {
-		self.skillList = skillList;
+	skillListService.getAll(fullSkillsList => {
+		self.skillList = fullSkillsList.map((item) => item.skill);
+		self.relatedSkillList = fullSkillsList;
 	});
 
 	self.changeView = function(view){
@@ -77,11 +83,17 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 
 	self.displaySkillList = () => {
 		angular.element('.skill-modal .skill-list').slideDown(250);
+		angular.element('#skillSearch').focus()
 	};
 
 	self.displayAddSkillModal = () => {
 		self.skillName = '';
 		angular.element('#skills-modal').addClass('active');
+	};
+
+	self.displayRelatedSkillsModal = () => {
+		angular.element('#related-skills-modal').addClass('active');
+		angular.element('.skill-modal .skill-list').slideDown(250);
 	};
 
 	self.displaySwitchRulesModal = () => {
@@ -98,7 +110,6 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 	};
 
 	self.editSkill = skillName => {
-
 		const foundSkill = self.skills.filter(skill => skill.name === skillName);
 
 		if (foundSkill) {
@@ -155,7 +166,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 			warn(pickAValidSkillWarning, true);
 			return;
 		}
-		
+
 		if (self.skills[existingSkillIndex]) {	
 			self.skills[existingSkillIndex].value = skill.value;
 			self.skillTotal = self.skillTotal ? skill.value + self.skillTotal : skill.value;
@@ -173,7 +184,53 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 		angular.element('.skill-modal .skill-list').slideUp(250);
 		self.dismissModal();
 		warn(changesNotSavedWarning);
+
+		self.suggestedSkills = self.findRelatedSkills(skill.name)
+
+		self.suggestedSkills = self.suggestedSkills.filter(suggestedSkill => {
+			const dupes = self.skills.filter(skill => skill.name === suggestedSkill)
+
+			return dupes.length === 0
+		})
+
+		if (self.suggestedSkills.length) {
+			self.displayRelatedSkillsModal()
+		}
 	};
+
+	self.addRelatedSkills = (relatedSkillNames) => {
+		const relatedSkills = relatedSkillNames.map(skill => ({ name: skill, value: self.rangeValue }))
+		const relatedSkillsValue = relatedSkills.reduce((acc, curr) => acc.value + curr.value);
+
+
+		if (self.skillTotal + relatedSkillsValue > self.uoplannerRules.skillTotal) {
+			warn(aboveSkillCapWarning, true);
+			return;
+		}
+
+		if (self.rangeValue === 0) {
+			warn(mustActuallySetASkillWarning, true);
+			return;
+		}
+	
+		self.skills.push(...relatedSkills);
+
+		self.skillTotal += relatedSkillsValue;
+		self.skills = uoplanner.skillSorter.sort(self.skills);
+		angular.element('.skill-modal .skill-list').slideUp(250);
+		self.dismissModal();
+		warn(changesNotSavedWarning);
+	};
+
+	self.findRelatedSkills = (skillName) => {
+		const relatedSkills = self.relatedSkillList.filter(item => item.skill.toLowerCase() === skillName.toLowerCase())
+
+		if (relatedSkills.length && relatedSkills[0].hasOwnProperty('related')) {
+			return relatedSkills[0].related
+		}
+
+		return []
+	}
 
 	self.setTemplateName = (templateName) => {		
 		let urlName = templateName
@@ -203,7 +260,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 
 	self.saveTemplate = () => {
 		if (self.templateName && self.skills.length) {
-			templateService.save(self.skills, self.templateName, '', self.uoplannerRules.ruleSet, query => {
+			templateService.save(self.skills, self.templateName, self.templateId, self.uoplannerRules.ruleSet, query => {
 				self.templateId = query.templateId;
 				self.urlName = query.urlName;
 				warn(templateSavedWarning);

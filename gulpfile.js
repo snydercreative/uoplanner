@@ -10,10 +10,14 @@ const stylish = require('jshint-stylish');
 const runSequence = require('run-sequence');
 const cssnano = require('gulp-cssnano');
 const sourcemaps = require('gulp-sourcemaps');
+const fs = require('fs')
 
-gulp.task('clean', () => {
-	return gulp.src('public')
-		.pipe(clean());
+gulp.task('clean', (cb) => {
+	if (fs.existsSync('public'))
+		gulp.src('public')
+			.pipe(clean());
+	
+	cb()
 });
 
 gulp.task('move-data', () => {
@@ -53,24 +57,24 @@ gulp.task('js', () => {
 });
 
 gulp.task('move-vendor-js', () => {
-	gulp.src('client/js/vendor/**/*')
+	return gulp.src('client/js/vendor/**/*')
 		.pipe(gulp.dest('public/js/vendor'));
 });
 
 gulp.task('html', () => {
-	gulp.src('client/js/skillsApp/_directives/**/*.html')
+	return gulp.src('client/js/skillsApp/_directives/**/*.html')
 		.pipe(gulp.dest('public/views'))
 });
 
-gulp.task('default', ['clean'], (callback) => {
-	runSequence(['scss','js', 'html', 'move-data', 'move-vendor-js'], callback);
+gulp.task('default', gulp.series('clean', 'scss','js', 'html', 'move-data', 'move-vendor-js'), (cb) => {
+	cb()
 });
 
 gulp.task('watcher', () => {
-	gulp.watch('client/stylesheets/**/*.scss', ['default']);
-	gulp.watch('client/js/*.js', ['default']);
-	gulp.watch('client/js/utility/**/*.js', ['default']);
-	gulp.watch('client/js/skillsApp/**/*.js', ['default']);
-	gulp.watch('client/js/skillsApp/**/*.html', ['default']);
-	gulp.watch('server/web/_views/**/*.pug', ['default']);
+	gulp.watch('client/stylesheets/**/*.scss', gulp.series('default'));
+	gulp.watch('client/js/*.js', gulp.series('default'));
+	gulp.watch('client/js/utility/**/*.js', gulp.series('default'));
+	gulp.watch('client/js/skillsApp/**/*.js', gulp.series('default'));
+	gulp.watch('client/js/skillsApp/**/*.html', gulp.series('default'));
+	gulp.watch('server/web/_views/**/*.pug', gulp.series('default'));
 });
