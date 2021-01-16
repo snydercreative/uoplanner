@@ -36,5 +36,16 @@
 				}
 			}
 		}
+
+		&.no-highlight {
+			ul {
+				li {
+					&:hover {
+						background: inherit;
+						color: white;
+					}
+				}
+			}
+		}
 	}
 }

@@ -12,10 +12,12 @@ const cssnano = require('gulp-cssnano');
 const sourcemaps = require('gulp-sourcemaps');
 const fs = require('fs')
 
-gulp.task('clean', () => {
+gulp.task('clean', (cb) => {
 	if (fs.existsSync('public'))
-		return gulp.src('public')
+		gulp.src('public')
 			.pipe(clean());
+	
+	cb()
 });
 
 gulp.task('move-data', () => {
@@ -55,20 +57,20 @@ gulp.task('js', () => {
 });
 
 gulp.task('move-vendor-js', () => {
-	gulp.src('client/js/vendor/**/*')
+	return gulp.src('client/js/vendor/**/*')
 		.pipe(gulp.dest('public/js/vendor'));
 });
 
 gulp.task('html', () => {
-	gulp.src('client/js/skillsApp/_directives/**/*.html')
+	return gulp.src('client/js/skillsApp/_directives/**/*.html')
 		.pipe(gulp.dest('public/views'))
 });
 
-gulp.task('default', async () => {
-	gulp.series('clean', 'scss','js', 'html', 'move-data', 'move-vendor-js')
+gulp.task('default', gulp.series('clean', 'scss','js', 'html', 'move-data', 'move-vendor-js'), (cb) => {
+	cb()
 });
 
-gulp.task('watcher', async () => {
+gulp.task('watcher', () => {
 	gulp.watch('client/stylesheets/**/*.scss', gulp.series('default'));
 	gulp.watch('client/js/*.js', gulp.series('default'));
 	gulp.watch('client/js/utility/**/*.js', gulp.series('default'));
