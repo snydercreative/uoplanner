@@ -102,8 +102,10 @@ html(lang="en-US" charset="utf-8" ng-app="skillsApp")
 						input#skillRange(type="range" min="0" max="{{build.uoplannerRules.skillMax}}" step="1" ng-model="build.rangeValue")
 						.value {{build.rangeValue}}
 
-					button.btn-bottom(ng-click="build.addRelatedSkills(build.suggestedSkills)") Add Skills to Template
-						i.fa.fa-caret-right
+					div
+						button.btn-bottom.left(ng-click="build.dismissModal($event)") Nah, I'm good
+						button.btn-bottom.right.action(ng-click="build.addRelatedSkills(build.suggestedSkills)") Add Skills to Template
+							i.fa.fa-caret-right
 
 		#template-name-modal.modal-wrapper.build
 			.modal.name-modal.flex

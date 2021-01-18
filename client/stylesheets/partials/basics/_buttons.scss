@@ -49,5 +49,22 @@ button, .button {
 			background: rgba(white, .3);
 			color: white;
 		}	
+
+		&.left, &.right {
+			width: 50%;
+		}
+
+		&.right {
+			right: 0;
+			left: auto;
+		}
+
+		&.action {
+			background-color: $yellow;
+			
+			&:hover {
+				background: rgba($yellow, 0.2);
+			}
+		}
 	}
 }
