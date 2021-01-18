@@ -198,12 +198,12 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 		}
 	};
 
-	self.addRelatedSkills = (relatedSkillNames) => {
-		const relatedSkills = relatedSkillNames.map(skill => ({ name: skill, value: self.rangeValue }))
-		const relatedSkillsValue = relatedSkills.reduce((acc, curr) => acc.value + curr.value);
+	self.addRelatedSkills = (skillNames) => {
+		const relatedSkills = skillNames.map(skill => ({ name: skill, value: self.rangeValue }))
+		const relatedSkillValues = relatedSkills.map(skill => skill.value)
+		const relatedSkillsTotal = relatedSkillValues.reduce((acc, curr) => acc + curr);
 
-
-		if (self.skillTotal + relatedSkillsValue > self.uoplannerRules.skillTotal) {
+		if (self.skillTotal + relatedSkillsTotal > self.uoplannerRules.skillTotal) {
 			warn(aboveSkillCapWarning, true);
 			return;
 		}
@@ -215,7 +215,7 @@ skillsApp.controller('BuildCtrl', ['$scope', '$location', 'templateService', 'sk
 	
 		self.skills.push(...relatedSkills);
 
-		self.skillTotal += relatedSkillsValue;
+		self.skillTotal += relatedSkillsTotal;
 		self.skills = uoplanner.skillSorter.sort(self.skills);
 		angular.element('.skill-modal .skill-list').slideUp(250);
 		self.dismissModal();
